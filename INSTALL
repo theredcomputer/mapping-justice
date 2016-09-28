@@ -1,9 +1,8 @@
 Project Dependencies:
 
-Nodejs - www.nodejs.org
-    Note: please install version 6
-Express - www.expressjs.com
-Leaflet - www.leafletjs.com
+to install node.js
+run 
+$ brew install node
 
 ===============================================================================
 
@@ -20,5 +19,5 @@ To start the site, run the following from the project root:
 $ npm start
 
 To view the map, visit the following URL:
-$ localhost:3000/map
+localhost:3000/map
 
