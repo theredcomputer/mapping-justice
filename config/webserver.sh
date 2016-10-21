@@ -10,7 +10,7 @@ if [ $(uname) != "Linux" ]; then
 fi
 
 # First, let's get the site information loaded into nginx
-cp nginx/mapping_justice /etc/nginx/sites-available
+cp config/nginx/mapping_justice /etc/nginx/sites-available
 ln -s /etc/nginx/sites-available/mapping_justice /etc/nginx/sites-enabled/mapping_justice
 
 # Restart nginx
