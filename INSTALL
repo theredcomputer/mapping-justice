@@ -1,23 +1,41 @@
 Project Dependencies:
 
-To install node.js on Mac, run:
-$ brew install node
+Node.js
 
+    To install node.js on Mac, run:
+    $ brew install node
+
+    To instal Nodejs on Linux, run:
+    $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    $ sudo apt-get install -y nodejs
+
+npm
+
+    To install npm on Linux, run:
+    $ sudo apt-get install -y npm
+
+nginx
+
+    To install nginx on Linux, run:
+    $ sudo apt-get install -y nginx
 
 ===============================================================================
 
 Configuring the environment:
 
-Run the following command to pull the required dependencies:
+Pull the required Javascripts:
 $ npm install
+
+Configure nginx
+$ sudo ./config/webserver.sh
 
 ===============================================================================
 
 Operating the application:
 
-To start the site, run the following from the project root:
+To start the site, run the following from the project root directory:
 $ npm start
 
 To view the map, visit the following URL:
-localhost:3000/map
+localhost
 
