@@ -26,7 +26,7 @@ Configuring the environment:
 Pull the required Javascripts:
 $ npm install
 
-Configure nginx
+Configure nginx (CURRENTLY LINUX ONLY, open the file to see what it does)
 $ sudo ./config/webserver.sh
 
 ===============================================================================
