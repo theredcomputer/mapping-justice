@@ -9,9 +9,14 @@ if [ $(uname) != "Linux" ]; then
     exit;
 fi
 
+if [ $1 == "--prod" ]; then
+    cp config/nginx/mapping_justice_prod /etc/nginx/sites-available
+    ln -s /etc/nginx/sites-available/mapping_justice_prod /etc/nginx/sites-enabled/mapping_justice_prod
 # First, let's get the site information loaded into nginx
-cp config/nginx/mapping_justice /etc/nginx/sites-available
-ln -s /etc/nginx/sites-available/mapping_justice /etc/nginx/sites-enabled/mapping_justice
+elif
+    cp config/nginx/mapping_justice /etc/nginx/sites-available
+    ln -s /etc/nginx/sites-available/mapping_justice /etc/nginx/sites-enabled/mapping_justice
+fi
 
 # Restart nginx
 service nginx restart;
