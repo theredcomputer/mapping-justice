@@ -32,6 +32,10 @@
     "passport" : "latest",         
     "passport-local" : "latest",    
     "passport-google-oauth" : "latest"
+    "connect-flash" : "latet",     
+    "bcrypt-nodejs" : "latest",
+    "express-session": "latest" 
+    "method-override": "latest",
     
     
     
