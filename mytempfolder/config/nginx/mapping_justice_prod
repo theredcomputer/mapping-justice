@@ -1,0 +1,12 @@
+
+
+# nginx configuration file for the Mapping Justice website
+
+server {
+    listen 80;
+	server_name map.atlantalegalaid.org;
+
+	location / {
+        proxy_pass http://127.0.0.1:3000;
+	}
+}
