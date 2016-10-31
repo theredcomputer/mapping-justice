@@ -6,9 +6,9 @@ var router = express.Router();
   res.render('index', { title: 'Express' });
 });
 */
-router.get('/', function(req, res, next) {
-    res.render('map', { title: 'Mapping Justice' });
-});
+//router.get('/', function(req, res, next) {
+    //res.render('map', { title: 'Mapping Justice' });
+//});
 
 var isAuthenticated = function (req, res, next) {
   // if user is authenticated in the session, call the next() to call the next request handler
@@ -49,7 +49,8 @@ module.exports = function(passport){
 
   /* GET Home Page */
   router.get('/home', isAuthenticated, function(req, res){
-    res.render('home', { user: req.user });
+    //res.render('home', { user: req.user });
+     res.render('map', { title: 'Mapping Justice' });
   });
 
   /* Handle Logout */
