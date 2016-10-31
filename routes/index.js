@@ -10,52 +10,54 @@ router.get('/', function(req, res, next) {
     res.render('map', { title: 'Mapping Justice' });
 });
 
-//Added by Kevin
+var isAuthenticated = function (req, res, next) {
+  // if user is authenticated in the session, call the next() to call the next request handler
+  // Passport adds this method to request object. A middleware is allowed to add properties to
+  // request and response objects
+  if (req.isAuthenticated())
+    return next();
+  // if the user is not authenticated then redirect him to the login page
+  res.redirect('/');
+}
 
-    router.get('/login', function(req, res) {
+module.exports = function(passport){
 
-        // render the page and pass in any flash data if it exists
-        res.render('login.jade', { message: req.flash('loginMessage') }); 
-    });
+  /* GET login page. */
+  router.get('/', function(req, res) {
+    // Display the Login page with any flash message, if any
+    res.render('index', { message: req.flash('message') });
+  });
 
- 
-    // show the signup form
-    app.get('/signup', function(req, res) {
+  /* Handle Login POST */
+  router.post('/login', passport.authenticate('login', {
+    successRedirect: '/home',
+    failureRedirect: '/',
+    failureFlash : true
+  }));
 
-        // render the page and pass in any flash data if it exists
-        res.render('signup.jade', { message: req.flash('signupMessage') });
-    });
+  /* GET Registration Page */
+  router.get('/signup', function(req, res){
+    res.render('register',{message: req.flash('message')});
+  });
 
-    // process the signup form
-    // app.post('/signup', do all our passport stuff here);
+  /* Handle Registration POST */
+  router.post('/signup', passport.authenticate('signup', {
+    successRedirect: '/home',
+    failureRedirect: '/signup',
+    failureFlash : true
+  }));
 
-    // =====================================
-    // PROFILE SECTION =====================
-    // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {user : req.user }); // get the user out of session and pass to template;
-    });
+  /* GET Home Page */
+  router.get('/home', isAuthenticated, function(req, res){
+    res.render('home', { user: req.user });
+  });
 
-    // =====================================
-    // LOGOUT ==============================
-    // =====================================
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-};
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
+  /* Handle Logout */
+  router.get('/signout', function(req, res) {
+    req.logout();
     res.redirect('/');
-} //Added by Kevin
+  });
 
-module.exports = router;
+  return router;
+}
+
