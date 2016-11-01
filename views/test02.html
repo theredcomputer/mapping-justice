@@ -1,0 +1,365 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mapping Injustice</title>
+    <!--MapboxGL-->
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
+    <!--MapboxJS-->
+    <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+    <!--Bootstrap Core CSS-->
+    <link rel="stylesheet" href="main.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--Print-->
+    <link rel="stylesheet" href="dist/easyPrint.css"/>
+    <script src="dist/leaflet.easyPrint.js"></script>
+
+    <style>
+        body { margin:0; padding-top:70px; }
+        h2, h3 {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        h3 {
+            font-size: 1em;
+        }
+        p {
+            font-size: 0.85em;
+            margin: 10px;
+            text-align: left;
+        }
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.8);
+            margin-right: 20px;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            border-radius: 3px;
+        }
+        #map {
+            position:absolute;
+            top:0;
+            bottom:0;
+            //margin-top: 10px;
+            width:100%;
+        }
+        #features {
+            top: 0;
+            height: 100px;
+            margin-top: 60px;
+            width: 250px;
+        }
+        #legend {
+            padding: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+            line-height: 18px;
+            height: 200px;
+            margin-bottom: 40px;
+            width: 150px;
+        }
+        .legend-key {
+            display:inline-block;
+            border-radius: 20%;
+            width:10px;
+            height: 5px;
+            margin-right: 5px;
+        }
+        #menu {
+            position: absolute;
+            background: #fff;
+            padding: 5px;
+            //margin-top: 0px;
+           // margin-right: 10px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        #leafletEasyPrint{
+
+            //padding:5px;
+            height:20px;
+
+        }
+        #zoom{
+            margin-top: 50px;
+        }
+
+    </style>
+    <style id="style-1-cropbar-clipper">
+        /* Copyright 2014 Evernote Corporation. All rights reserved. */
+    .en-markup-crop-options {
+        top: 18px !important;
+        left: 50% !important;
+        margin-left: -100px !important;
+        width: 200px !important;
+        border: 2px rgba(255,255,255,.38) solid !important;
+        border-radius: 4px !important;
+    }
+
+    .en-markup-crop-options div div:first-of-type {
+        margin-left: 0px !important;
+    }
+    </style>
+</head>
+<body>
+
+<div id="map" class="mapboxgl-map">
+    <div class="mapboxgl-canvas-container mapboxgl-interactive">
+        <canvas class="mapboxgl-canvas" tabindex="0" width="2560" height="300" style="position: absolute; width: 1280px; height: 150px; cursor: default;">
+
+        </canvas>
+    </div>
+    <div class="mapboxgl-control-container">
+        <!--<div class="mapboxgl-ctrl-top-left"></div>-->
+        <!--<div class="mapboxgl-ctrl-top-right"></div>-->
+        <!--<div class="mapboxgl-ctrl-bottom-left"></div>-->
+        <!--<div class="mapboxgl-ctrl-bottom-right">-->
+            <!--<div class="mapboxgl-ctrl-attrib mapboxgl-ctrl">-->
+                <!--<a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox-->
+                <!--</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+<div class="map-overlay" id="features"><h2>Georgia Racial Density</h2><div id="pd"><p>Hover over a dot!</p></div></div>
+<div class="map-overlay" id="legend">
+    <div><span>% White</span></div>
+    <div><span class="legend-key" style="background-color: rgb(255, 237, 160);"></span>
+    <span><30</span></div>
+    <div><span class="legend-key" style="background-color: rgb(254, 217, 118);"></span>
+    <span>30-50</span></div>
+    <div><span class="legend-key" style="background-color: rgb(254, 178, 76);"></span>
+    <span>50-70</span></div>
+    <div><span class="legend-key" style="background-color: rgb(253, 141, 60);"></span>
+    <span>70-90</span></div>
+    <div><span class="legend-key" style="background-color: #FC4E2A;"></span>
+    <span>90+</span></div>
+    <div><span>% African American</span></div>
+    <div><span class="legend-key" style="background-color: #ADFF2F;"></span>
+    <span><60</span></div>
+    <div><span class="legend-key" style="background-color: #228B22;"></span>
+    <span>60+</span></div>
+</div>
+<div id='menu'>
+
+    <!--<input id='race_01' type='radio' name='rtoggle' value='race' >-->
+    <!--<label for='race_01'>race_01</label>-->
+    <input id='race_02' type='radio' name='rtoggle' value='race' checked='checked'>
+    <label for='race_02'>race</label>
+    <input id='property' type='radio' name='rtoggle' value='property' >
+    <label for='property'>Property</label>
+    <input id='price' type='radio' name='rtoggle' value='price'>
+    <label for='price'>price</label>
+
+</div>
+<!-- Navigation Bar-->
+<nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Mapping Injustice</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="test02.html">Map</a>
+                </li>
+                <li>
+                    <a href="upload.html">Upload</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div class="leaflet-control-zoom leaflet-bar leaflet-control" id="zoom">
+    <a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a>
+    <a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a>
+</div>
+<div class="leaflet-control-easyPrint leaflet-bar leaflet-control">
+    <a class="leaflet-control-easyPrint-button leaflet-bar-part" id="leafletEasyPrint" title="My awesome print button"></a>
+</div>
+
+<script>
+
+    // define access token
+    //mapboxgl.accessToken = 'pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2lqbmpqazdlMDBsdnRva284cWd3bm11byJ9.V6Hg2oYJwMAxeoR9GEzkAA';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGZlbmciLCJhIjoiY2lzdndodTI0MDJvYjJ5cGd5ZnI2ZmJnNyJ9.D4VXSWW1-uWiSiB4bYRXOw';
+    var layerNum=2;
+    //create map
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        //style: 'mapbox://styles/examples/cinm8cuw30024adnctbjra0zy' // map style URL from Mapbox Studio
+        style:'mapbox://styles/hfeng/ciuyswqni00hx2js5h9i3grnn'
+
+    });
+
+    // wait for map to load before adjusting it
+    map.on('load', function() {
+
+        // make a pointer cursor
+        map.getCanvas().style.cursor = 'default';
+
+        // set map bounds to the continental US
+        //map.fitBounds([[-133.2421875, 16.972741], [-47.63671875, 52.696361]]);
+        //map.fitBounds([[20,-80],[50,-85]]);
+
+        if(layerNum==1){
+            // define layer names
+            var layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
+
+            // create legend
+            layers1.forEach(function(layer) {
+                var color = map.getPaintProperty(layer, 'fill-color');
+                var item = document.createElement('div');
+                var key = document.createElement('span');
+                key.className = 'legend-key';
+                key.style.backgroundColor = color;
+
+//            var value = document.createElement('span');
+//            value.innerHTML = layer;
+//            item.appendChild(key);
+//            item.appendChild(value);
+//            legend.appendChild(item);
+            });
+
+        }
+        else if(layerNum==2){
+            // define layer names
+            var layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
+
+            // create legend
+            layers2.forEach(function(layer) {
+                var color = map.getPaintProperty(layer, 'fill-color');
+                var item = document.createElement('div');
+                var key = document.createElement('span');
+                key.className = 'legend-key';
+                key.style.backgroundColor = color;
+
+            });
+
+        }
+        else if(layerNum==3){
+            // define layer names
+            var layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
+
+            // create legend
+            layers3.forEach(function(layer) {
+                var color = map.getPaintProperty(layer, 'fill-color');
+                var item = document.createElement('div');
+                var key = document.createElement('span');
+                key.className = 'legend-key';
+                key.style.backgroundColor = color;
+
+            });
+
+        }
+
+            // change info window on hover
+            map.on('mousemove', function (e) {
+                if(layerNum==1){
+                    console.log(layerNum);
+                    var states = map.queryRenderedFeatures(e.point, {
+                        layers: layers1
+                    });
+
+                    if (states.length > 0) {
+                        //document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.LATITUDE+", "+ states[0].properties.LONGITUDE + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
+                        document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Address + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
+                        //document.getElementById('pd').innerHTML = Json.stringify(features,null,2);
+                    } else {
+                        document.getElementById('pd').innerHTML = '<p>Hover over a dot!</p>';
+                    }
+                }
+                else if(layerNum==2){
+                    console.log(layerNum);
+                    var states = map.queryRenderedFeatures(e.point, {
+                        layers: layers2
+                    });
+
+                    if (states.length > 0) {
+                        if(states[0].properties.Racial_den<=100)
+                            document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % white people</em></p>";
+                        else if(states[0].properties.Racial_den<2000){
+                            states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
+                            document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
+                        }
+//                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
+                    } else {
+                        document.getElementById('pd').innerHTML = '<p>Hover over a state!</p>';
+                    }
+                }
+                else if(layerNum==3){
+                    console.log(layerNum);
+                    var states = map.queryRenderedFeatures(e.point, {
+                        layers: layers3
+                    });
+
+//            var states = map.queryRenderedFeatures(e.point);
+//
+                    if (states[0].properties.Census_p_1 > 0) {
+                       document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % white people</em></p>";
+                    } else {
+                        document.getElementById('pd').innerHTML = '<p>Hover over a dot!</p>';
+                    }
+                }
+
+            });
+
+
+
+
+
+
+
+
+
+    });
+    var layerList = document.getElementById('menu');
+    var inputs = layerList.getElementsByTagName('input');
+
+    function switchLayer(layer){
+        var layerId = layer.target.id;
+        //alert(layerId);
+        if(layerId=='race_02'){
+            map.setStyle('mapbox://styles/hfeng/ciuyswqni00hx2js5h9i3grnn');
+            layerNum=2;
+        }
+        else if(layerId=='property'){
+            map.setStyle('mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u');
+            layerNum=3;
+        }
+        else{
+            map.setStyle('mapbox://styles/hfeng/ciuyswqni00hx2js5h9i3grnn');
+            layerNum=1;
+        }
+
+    }
+    for(var i=0;i<inputs.length;i++){
+        inputs[i].onclick = switchLayer;
+    }
+//    Print
+//    map.easyPrint({
+//        title: 'My awesome print button',
+//        elementsToHide: 'p, h2, .gitButton'
+//    }).addTo(map);
+
+</script>
+
+
+
+</body></html>
