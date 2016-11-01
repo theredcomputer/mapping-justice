@@ -58,5 +58,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.get('/maps', function(req, res) {
+    res.render('test02.html');
+});
+
 
 module.exports = app;
