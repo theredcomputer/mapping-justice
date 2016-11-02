@@ -56,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes/index')(passport);
 var users = require('./routes/users');
 var map = require('./routes/map');
+var upload = require('./routes/upload');
 
 var dbConfig = require('./db');
 var mongoose = require('mongoose');
