@@ -7,7 +7,7 @@ var router = express.Router();
 });
 */
 router.get('/', function(req, res, next) {
-    res.render('test', { title: 'Mapping Justice' });
+    res.render('map', { title: 'Mapping Justice' });
 });
 
 module.exports = router;
