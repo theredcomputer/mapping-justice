@@ -300,6 +300,7 @@
                             states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
                             document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
                         }
+//                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
                     } else {
                         document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
                     }
@@ -309,24 +310,17 @@
                     var states = map.queryRenderedFeatures(e.point, {
                         layers: layers3
                     });
-                    
-
 
 //            var states = map.queryRenderedFeatures(e.point);
 //
                     if (states[0].properties.Census_p_1 > 0) {
                        document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % white people</em></p>";
-                       //map.setFilter("fill-color", ["==", "name", features[0].properties.name]);
                     } else {
                         document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
                     }
                 }
 
             });
-
-            // map.on("mouseout", function() {
-            //   map.setFilter("state-fills-hover", ["==", "name", ""]);
-            // });
 
 
 
