@@ -65,6 +65,7 @@ mongoose.connect(dbConfig.url);
 app.use('/', routes);
 app.use('/users', users);
 app.use('/map', map);
+app.use('/upload',upload);
 
 
 // Configuring Passport
