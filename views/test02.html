@@ -300,7 +300,6 @@
                             states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
                             document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
                         }
-//                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
                     } else {
                         document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
                     }
@@ -310,6 +309,12 @@
                     var states = map.queryRenderedFeatures(e.point, {
                         layers: layers3
                     });
+                    var features = map.queryRenderedFeatures(e.point, { layers: ["state-fills"] });
+                    if (features.length) {
+                        map.setFilter("state-fills-hover", ["==", "name", features[0].properties.name]);
+                    } else {
+                        map.setFilter("state-fills-hover", ["==", "name", ""]);
+                    }
 
 //            var states = map.queryRenderedFeatures(e.point);
 //
@@ -320,6 +325,10 @@
                     }
                 }
 
+            });
+
+            map.on("mouseout", function() {
+              map.setFilter("state-fills-hover", ["==", "name", ""]);
             });
 
 
