@@ -149,9 +149,9 @@
     <!--<input id='race_01' type='radio' name='rtoggle' value='race' >-->
     <!--<label for='race_01'>race_01</label>-->
     <input id='race_02' type='radio' name='rtoggle' value='race' checked='checked'>
-    <label for='race_02'>race</label>
+    <label for='race_02'>Property</label>
     <input id='property' type='radio' name='rtoggle' value='property' >
-    <label for='property'>Property</label>
+    <label for='property'>race</label>
     <input id='price' type='radio' name='rtoggle' value='price'>
     <label for='price'>price</label>
 
@@ -206,7 +206,7 @@
     var map = new mapboxgl.Map({
         container: 'map', // container id
         //style: 'mapbox://styles/examples/cinm8cuw30024adnctbjra0zy' // map style URL from Mapbox Studio
-        style:'mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u'
+        style:'mapbox://styles/hfeng/ciuyswqni00hx2js5h9i3grnn'
 
     });
 
@@ -337,11 +337,11 @@
     function switchLayer(layer){
         var layerId = layer.target.id;
         //alert(layerId);
-        if(layerId=='property'){
+        if(layerId=='race_02'){
             map.setStyle('mapbox://styles/hfeng/ciuyswqni00hx2js5h9i3grnn');
             layerNum=2;
         }
-        else if(layerId=='race_02'){
+        else if(layerId=='property'){
             map.setStyle('mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u');
             layerNum=3;
         }
