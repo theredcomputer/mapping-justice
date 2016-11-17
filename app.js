@@ -134,26 +134,37 @@ app.get('/address/:name',function(req,res){
   
 
   });
-  console.log(temp2);
+  //console.log(temp2);
   setTimeout((function() {res.send(temp2)}), 2000);
-  // var feature = {
-  // "type": "Feature",
-  // "properties": {
-  //   "name": "Test Island"
-  //   },
-  // "geometry": {
-  //   "type": "Point",
-  //   "coordinates": temp2
-  //   }
-  // };
-  // client.insertFeature(feature, 'civh80y03016b2to6gg7y0zc6', function(err, feature) {
-  //     if(!err) {
-  //       console.log(feature);
-  //       console.log('insert!');
-  //     }
-  //  });
+  
    
     
+});
+
+app.get('/insert/:point',function(req,res){
+  // var len = (req.params.point).length();
+  var n = (req.params.point).indexOf(",");
+  var lat = parseFloat((req.params.point).substring(0,n));
+  var long = parseFloat((req.params.point).substring(n+1));
+  var temp = [lat,long];
+  console.log(temp);
+   var feature = {
+  "type": "Feature",
+  "properties": {
+    "name": "Test Island"
+    },
+  "geometry": {
+    "type": "Point",
+    "coordinates": temp,
+    }
+  };
+  client.insertFeature(feature, 'civh80y03016b2to6gg7y0zc6', function(err, feature) {
+      if(!err) {
+        console.log(feature);
+        //console.log('insert!');
+        //return res.json('insert!');
+      }
+   });
 });
 
 app.get('/fetch',function(req,res){

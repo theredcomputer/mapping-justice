@@ -365,6 +365,11 @@
 
 
             }
+            $scope.insert = function(){
+                $http.get("/insert/"+point).success(function(data){
+                    console.log(data);
+                });
+            }
 
         });
 

@@ -27,6 +27,7 @@
     "express": "~4.13.4",
     "express-session": "^1.14.1",
     "jade": "~1.11.0",
+    "mapbox": "^1.0.0-beta5",
     "mongoose": "^4.6.5",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
