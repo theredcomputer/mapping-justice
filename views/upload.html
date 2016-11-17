@@ -264,7 +264,7 @@
               <br><button ng-click="addItem()" type="button" id="button1" class="btn btn-primary" onclick="Upload()">Preview</button>
           </div>
           <div class="control-group col-xs-6 col-sm-6 field col-md-6 col-lg-6">
-              <br><button type="button" id="button2" class="btn btn-primary" onclick="Upload()">Submit</button>
+              <br><button ng-click="insert()" type="button" id="button2" class="btn btn-primary" onclick="Upload()">Submit</button>
           </div>
 
      </div>
@@ -295,7 +295,7 @@
         });
         var temp1;
 
-        var str;
+        var point=2;
         var app = angular.module("myShoppingList", []);
         app.controller("myCtrl", function($scope,$http) {
             var i=0;
@@ -329,7 +329,7 @@
                     console.log(data);
                     var str = i+"";
                     i++;
-
+                    point=data;
                     map.addSource(str, {
                         "type": "geojson",
                         "data": {
@@ -370,7 +370,6 @@
                     console.log(data);
                 });
             }
-
         });
 
 
