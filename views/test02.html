@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="http://rowanwins.github.io/leaflet-easyPrint/dist/easyPrint.css"/>
     <script src="http://rowanwins.github.io/leaflet-easyPrint/dist/leaflet.easyPrint.js"></script> -->
 
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
     <style>
         body { margin:0; padding-top:70px; }
         h2, h3 {
@@ -87,6 +90,14 @@
         #zoom{
             margin-top: 50px;
         }
+        /*#demo{*/
+            /*display:inline-block;*/
+            /*border-radius: 20%;*/
+            /*width:10px;*/
+            /*height: 5px;*/
+            /*margin-right: 5px;*/
+        /*}*/
+
 
     </style>
     <style id="style-1-cropbar-clipper">
@@ -105,7 +116,7 @@
     }
     </style>
 </head>
-<body>
+
 
 <div id="map" class="mapboxgl-map">
     <div class="mapboxgl-canvas-container mapboxgl-interactive">
@@ -114,15 +125,7 @@
         </canvas>
     </div>
     <div class="mapboxgl-control-container">
-        <!--<div class="mapboxgl-ctrl-top-left"></div>-->
-        <!--<div class="mapboxgl-ctrl-top-right"></div>-->
-        <!--<div class="mapboxgl-ctrl-bottom-left"></div>-->
-        <!--<div class="mapboxgl-ctrl-bottom-right">-->
-            <!--<div class="mapboxgl-ctrl-attrib mapboxgl-ctrl">-->
-                <!--<a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox-->
-                <!--</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a>-->
-            <!--</div>-->
-        <!--</div>-->
+
     </div>
 </div>
 <div class="map-overlay" id="features"><h2>Georgia State</h2><div id="pd"><p>Hover over a dot!</p></div></div>
@@ -143,6 +146,7 @@
     <span><60</span></div>
     <div><span class="legend-key" style="background-color: #228B22;"></span>
     <span>60+</span></div>
+    
 </div>
 <div id='menu'>
 
@@ -170,18 +174,22 @@
             <a class="navbar-brand" href="#">Mapping Injustice</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div ng-app="MyApp" ng-controller="MyCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="map">Map</a>
+                    <a href="map" >Map</a>
                 </li>
                 <li>
                     <a href="upload">Upload</a>
+                </li>
+                <li>
+                    <a ng-click="fetch()">Refresh</a>
                 </li>
             </ul>
 <!--             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
             </ul> -->
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -196,10 +204,20 @@
     <a class="leaflet-control-easyPrint-button leaflet-bar-part" id="leafletEasyPrint" title="My awesome print button"></a>
 </div>
 
+<div id="demo" ng-app="MyApp" ng-controller="MyCtrl">
+
+</div>
+
+
+
+
 <script>
+    var test;
+    var temp1 = 1;
+    var layers1,layers2,layers3;
 
     // define access token
-    //mapboxgl.accessToken = 'pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2lqbmpqazdlMDBsdnRva284cWd3bm11byJ9.V6Hg2oYJwMAxeoR9GEzkAA';
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiaGZlbmciLCJhIjoiY2lzdndodTI0MDJvYjJ5cGd5ZnI2ZmJnNyJ9.D4VXSWW1-uWiSiB4bYRXOw';
     var layerNum=2;
     //create map
@@ -222,7 +240,7 @@
 
         if(layerNum==1){
             // define layer names
-            var layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
+            layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
 
             // create legend
             layers1.forEach(function(layer) {
@@ -242,7 +260,7 @@
         }
         else if(layerNum==2){
             // define layer names
-            var layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
+            layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
 
             // create legend
             layers2.forEach(function(layer) {
@@ -257,7 +275,7 @@
         }
         else if(layerNum==3){
             // define layer names
-            var layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
+            layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
 
             // create legend
             layers3.forEach(function(layer) {
@@ -271,67 +289,103 @@
 
         }
 
-            // change info window on hover
-            map.on('mousemove', function (e) {
-                if(layerNum==1){
-                    console.log(layerNum);
-                    var states = map.queryRenderedFeatures(e.point, {
-                        layers: layers1
-                    });
 
-                    if (states.length > 0) {
-                        //document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.LATITUDE+", "+ states[0].properties.LONGITUDE + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
-                        document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Address + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
-                        //document.getElementById('pd').innerHTML = Json.stringify(features,null,2);
-                    } else {
-                        document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
-                    }
-                }
-                else if(layerNum==2){
-                    console.log(layerNum);
-                    var states = map.queryRenderedFeatures(e.point, {
-                        layers: layers2
-                    });
-
-                    if (states.length > 0) {
-                        if(states[0].properties.Racial_den<=100)
-                            document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % white people</em></p>";
-                        else if(states[0].properties.Racial_den<2000){
-                            states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
-                            document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
-                        }
-//                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
-                    } else {
-                        document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
-                    }
-                }
-                else if(layerNum==3){
-                    console.log(layerNum);
-                    var states = map.queryRenderedFeatures(e.point, {
-                        layers: layers3
-                    });
-
-//            var states = map.queryRenderedFeatures(e.point);
+//        map.addSource("places", {
+//            "type": "geojson",
+//            "data": test
+//        });
 //
-                    if (states[0].properties.Census_p_1 > 0) {
-                       document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % white people</em></p>";
-                       //map.setFilter('layers3',['==','fill-color','#1E90FF']);
-                    } else {
-                        document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
-                    }
-                }
-
-            });
-
-
-
-
-
-
-
+//        // Add a layer showing the places.
+//        map.addLayer({
+//            "id": "places",
+//            "type": "symbol",
+//            "source": "places",
+//            "layout": {
+//                "icon-image": "{icon}-15",
+//                "icon-allow-overlap": true
+//            }
+//
+//        });
 
 
     });
+
+    var popup = new mapboxgl.Popup({
+        closeButton:false,
+        closeOnClick:false
+    });
+
+    // change info window on hover
+    map.on('mousemove', function (e) {
+        if(layerNum==1){
+            console.log(layerNum);
+            var states = map.queryRenderedFeatures(e.point, {
+                layers: layers1
+            });
+
+            if (states.length > 0) {
+                //document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.LATITUDE+", "+ states[0].properties.LONGITUDE + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Address + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
+                //document.getElementById('pd').innerHTML = Json.stringify(features,null,2);
+            } else {
+                document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
+            }
+        }
+        else if(layerNum==2){
+            console.log(layerNum);
+            var states = map.queryRenderedFeatures(e.point, {
+                layers: layers2
+            });
+
+            if (states.length > 0) {
+                if(states[0].properties.Racial_den<=100)
+                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % white people</em></p>";
+                else if(states[0].properties.Racial_den<2000){
+                    states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
+                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
+                }
+//                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
+            } else {
+                document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
+            }
+        }
+        else if(layerNum==3){
+            console.log(layerNum);
+            var states = map.queryRenderedFeatures(e.point, {
+                layers: layers3
+            });
+
+
+            if (states[0].properties.Census_p_1 > 0) {
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % white people</em></p>";
+                //map.setFilter('layers3',['==','fill-color','#1E90FF']);
+            } else {
+                document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
+            }
+        }
+
+        var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+        if (!features.length) {
+            popup.remove();
+            return;
+        }
+
+        var feature = features[0];
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(feature.geometry.coordinates)
+                .setHTML(feature.properties.description)
+                .addTo(map);
+
+    });
+
+
+
+
     var layerList = document.getElementById('menu');
     var inputs = layerList.getElementsByTagName('input');
 
@@ -361,7 +415,51 @@
 //        elementsToHide: 'p, h2, .gitButton'
 //    }).addTo(map);
 
+//    var test;
+
+    var app = angular.module('MyApp',[]);
+    app.controller('MyCtrl',function($scope,$http){
+//        $http.get("/address").success(function(data){
+//            //$scope.demo=data;
+//            //alert( "Load was performed. " + data );
+//            temp=data;
+//        });
+        $scope.fetch = function(){
+            $http.get("/fetch").success(function(data){
+                test = data;
+
+
+                //console.log(data);
+
+            });
+            console.log(test);
+            var str = i+"";
+            i++;
+            map.addSource(str, {
+                "type": "geojson",
+                "data": test
+            });
+
+            // Add a layer showing the places.
+            map.addLayer({
+                "id": "places",
+                "type": "symbol",
+                "source": str,
+                "layout": {
+                    "icon-image": "{icon}-15",
+                    "icon-allow-overlap": true
+                }
+
+            });
+        };
+
+    });
+
+
+
+
 </script>
+
 
 
 
