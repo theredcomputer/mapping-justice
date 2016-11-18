@@ -152,7 +152,7 @@ app.get('/insert/:point',function(req,res){
   "type": "Feature",
   "properties": {
     "name": "Test Island",
-    "icon": "music"
+    "icon": "marker"
     },
   "geometry": {
     "type": "Point",
