@@ -151,14 +151,15 @@ app.get('/insert/:point',function(req,res){
    var feature = {
   "type": "Feature",
   "properties": {
-    "name": "Test Island"
+    "name": "Test Island",
+    "icon": "music"
     },
   "geometry": {
     "type": "Point",
     "coordinates": temp,
     }
   };
-  client.insertFeature(feature, 'civh80y03016b2to6gg7y0zc6', function(err, feature) {
+  client.insertFeature(feature, 'civn66zrc003g2yn2etaxhaey', function(err, feature) {
       if(!err) {
         console.log(feature);
         //console.log('insert!');
@@ -167,13 +168,20 @@ app.get('/insert/:point',function(req,res){
    });
 });
 
+var set;
+
 app.get('/fetch',function(req,res){
-   client.listFeatures('civh80y03016b2to6gg7y0zc6', {}, function(err, collection) {
+   client.listFeatures('civn66zrc003g2yn2etaxhaey', {}, function(err, collection,res) {
        //console.log(collection);
-       var n = collection.features.length;
-       console.log(n);
-       return res.json(collection.features[21].geometry.coordinates);
+       // var n = collection.features.length;
+       console.log(collection.features.length);
+       //console.log(res.features.length);
+       //return res.json(collection.features[21].geometry.coordinates);
+       set = collection;
+       
    });
+   setTimeout((function(){res.json(set)}),2000);
+   //return res.json(set);
 });
 
 // var dataset01 = {
