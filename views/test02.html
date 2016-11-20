@@ -238,56 +238,56 @@
         //map.fitBounds([[-133.2421875, 16.972741], [-47.63671875, 52.696361]]);
         //map.fitBounds([[20,-80],[50,-85]]);
 
-        if(layerNum==1){
-            // define layer names
-            layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
+//         if(layerNum==1){
+//             // define layer names
+//             layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
 
-            // create legend
-            layers1.forEach(function(layer) {
-                var color = map.getPaintProperty(layer, 'fill-color');
-                var item = document.createElement('div');
-                var key = document.createElement('span');
-                key.className = 'legend-key';
-                key.style.backgroundColor = color;
+//             // create legend
+//             layers1.forEach(function(layer) {
+//                 var color = map.getPaintProperty(layer, 'fill-color');
+//                 var item = document.createElement('div');
+//                 var key = document.createElement('span');
+//                 key.className = 'legend-key';
+//                 key.style.backgroundColor = color;
 
-//            var value = document.createElement('span');
-//            value.innerHTML = layer;
-//            item.appendChild(key);
-//            item.appendChild(value);
-//            legend.appendChild(item);
-            });
+// //            var value = document.createElement('span');
+// //            value.innerHTML = layer;
+// //            item.appendChild(key);
+// //            item.appendChild(value);
+// //            legend.appendChild(item);
+//             });
 
-        }
-        else if(layerNum==2){
-            // define layer names
-            layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
+//         }
+//         else if(layerNum==2){
+//             // define layer names
+//             layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
 
-            // create legend
-            layers2.forEach(function(layer) {
-                var color = map.getPaintProperty(layer, 'fill-color');
-                var item = document.createElement('div');
-                var key = document.createElement('span');
-                key.className = 'legend-key';
-                key.style.backgroundColor = color;
+//             // create legend
+//             layers2.forEach(function(layer) {
+//                 var color = map.getPaintProperty(layer, 'fill-color');
+//                 var item = document.createElement('div');
+//                 var key = document.createElement('span');
+//                 key.className = 'legend-key';
+//                 key.style.backgroundColor = color;
 
-            });
+//             });
 
-        }
-        else if(layerNum==3){
-            // define layer names
-            layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
+//         }
+//         else if(layerNum==3){
+//             // define layer names
+//             layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
 
-            // create legend
-            layers3.forEach(function(layer) {
-                var color = map.getPaintProperty(layer, 'fill-color');
-                var item = document.createElement('div');
-                var key = document.createElement('span');
-                key.className = 'legend-key';
-                key.style.backgroundColor = color;
+//             // create legend
+//             layers3.forEach(function(layer) {
+//                 var color = map.getPaintProperty(layer, 'fill-color');
+//                 var item = document.createElement('div');
+//                 var key = document.createElement('span');
+//                 key.className = 'legend-key';
+//                 key.style.backgroundColor = color;
 
-            });
+//             });
 
-        }
+//         }
 
 
 //        map.addSource("places", {
