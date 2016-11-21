@@ -58,21 +58,49 @@
             margin-top: 60px;
             width: 250px;
         }
-        #legend {
-            padding: 10px;
+        /*#legend {*/
+            /*padding: 10px;*/
+            /*box-shadow: 0 1px 2px rgba(0,0,0,0.10);*/
+            /*line-height: 18px;*/
+            /*height: 200px;*/
+            /*margin-bottom: 40px;*/
+            /*width: 150px;*/
+        /*}*/
+        /*.legend-key {*/
+            /*display:inline-block;*/
+            /*border-radius: 20%;*/
+            /*width:10px;*/
+            /*height: 5px;*/
+            /*margin-right: 5px;*/
+        /*}*/
+
+
+        .legend {
+            background-color: #fff;
+            border-radius: 3px;
+            bottom: 30px;
             box-shadow: 0 1px 2px rgba(0,0,0,0.10);
-            line-height: 18px;
-            height: 200px;
-            margin-bottom: 40px;
-            width: 150px;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            padding: 10px;
+            position: absolute;
+            right: 10px;
+            z-index: 1;
         }
-        .legend-key {
-            display:inline-block;
-            border-radius: 20%;
-            width:10px;
-            height: 5px;
+
+        .legend h4 {
+            margin: 0 0 10px;
+        }
+
+        .legend div span {
+            border-radius: 50%;
+            display: inline-block;
+            height: 10px;
             margin-right: 5px;
+            width: 10px;
         }
+
+
+
         #menu {
             position: absolute;
             background: #fff;
@@ -81,22 +109,67 @@
            // margin-right: 10px;
             font-family: 'Open Sans', sans-serif;
         }
-        #leafletEasyPrint{
+        /*#leafletEasyPrint{*/
 
-            //padding:5px;
-            height:20px;
+            /*//padding:5px;*/
+            /*height:20px;*/
 
-        }
+        /*}*/
         #zoom{
             margin-top: 50px;
         }
-        /*#demo{*/
-            /*display:inline-block;*/
-            /*border-radius: 20%;*/
-            /*width:10px;*/
-            /*height: 5px;*/
-            /*margin-right: 5px;*/
-        /*}*/
+
+
+
+        #menu {
+            background: #fff;
+            position: absolute;
+            z-index: 1;
+            top: 60px;
+            left: 10px;
+            border-radius: 3px;
+            width: 120px;
+            border: 1px solid rgba(0,0,0,0.4);
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #menu a {
+            font-size: 13px;
+            color: #404040;
+            display: block;
+            margin: 0;
+            padding: 0;
+            padding: 10px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        #menu a:last-child {
+            border: none;
+        }
+
+        #menu a:hover {
+            background-color: #f8f8f8;
+            color: #404040;
+        }
+
+        #menu a.active {
+            background-color: #3887be;
+            color: #ffffff;
+        }
+
+        #menu a.active:hover {
+            background: #3074a4;
+        }
+
+        .btn.btn-primary{
+            position: absolute;
+            z-index:1;
+            top: 160px;
+            left: 10px;
+            width: 120px;
+        }
 
 
     </style>
@@ -129,37 +202,70 @@
     </div>
 </div>
 <div class="map-overlay" id="features"><h2>Georgia State</h2><div id="pd"><p>Hover over a dot!</p></div></div>
-<div class="map-overlay" id="legend">
-    <div><span>% White</span></div>
-    <div><span class="legend-key" style="background-color: rgb(255, 237, 160);"></span>
-    <span><30</span></div>
-    <div><span class="legend-key" style="background-color: rgb(254, 217, 118);"></span>
-    <span>30-50</span></div>
-    <div><span class="legend-key" style="background-color: rgb(254, 178, 76);"></span>
-    <span>50-70</span></div>
-    <div><span class="legend-key" style="background-color: rgb(253, 141, 60);"></span>
-    <span>70-90</span></div>
-    <div><span class="legend-key" style="background-color: #FC4E2A;"></span>
-    <span>90+</span></div>
-    <div><span>% African American</span></div>
-    <div><span class="legend-key" style="background-color: #ADFF2F;"></span>
-    <span><60</span></div>
-    <div><span class="legend-key" style="background-color: #228B22;"></span>
-    <span>60+</span></div>
-    
-</div>
-<div id='menu'>
+<div class="legend" id="racial" style='display: none;'>
+    <!--<div><span>% White</span></div>-->
+    <!--<div><span class="legend-key" style="background-color: rgb(255, 237, 160);"></span>-->
+    <!--<span><30</span></div>-->
+    <!--<div><span class="legend-key" style="background-color: rgb(254, 217, 118);"></span>-->
+    <!--<span>30-50</span></div>-->
+    <!--<div><span class="legend-key" style="background-color: rgb(254, 178, 76);"></span>-->
+    <!--<span>50-70</span></div>-->
+    <!--<div><span class="legend-key" style="background-color: rgb(253, 141, 60);"></span>-->
+    <!--<span>70-90</span></div>-->
+    <!--<div><span class="legend-key" style="background-color: #FC4E2A;"></span>-->
+    <!--<span>90+</span></div>-->
+    <!--<div><span>% African American</span></div>-->
+    <!--<div><span class="legend-key" style="background-color: #ADFF2F;"></span>-->
+    <!--<span><60</span></div>-->
+    <!--<div><span class="legend-key" style="background-color: #228B22;"></span>-->
+    <!--<span>60+</span></div>-->
 
-    <!--<input id='race_01' type='radio' name='rtoggle' value='race' >-->
-    <!--<label for='race_01'>race_01</label>-->
-    <input id='race_02' type='radio' name='rtoggle' value='race' checked='checked'>
-    <label for='race_02'>Property</label>
-    <input id='property' type='radio' name='rtoggle' value='property' >
-    <label for='property'>race</label>
-    <input id='price' type='radio' name='rtoggle' value='price'>
-    <label for='price'>price</label>
+    <h4>Population</h4>
+    <div><span style='background-color: #723122'></span>25,000,000</div>
+    <div><span style='background-color: #8B4225'></span>10,000,000</div>
+    <div><span style='background-color: #A25626'></span>7,500,000</div>
+    <div><span style='background-color: #B86B25'></span>5,000,000</div>
+    <div><span style='background-color: #CA8323'></span>2,500,000</div>
+    <div><span style='background-color: #DA9C20'></span>1,000,000</div>
+    <div><span style='background-color: #E6B71E'></span>750,000</div>
+    <div><span style='background-color: #EED322'></span>500,000</div>
+    <div><span style='background-color: #F2F12D'></span>0</div>
 
 </div>
+
+
+<div id='price' class='legend' style='display: none;'>
+    <h4>Population</h4>
+    <div><span style='background-color: #723122'></span>1,000,000</div>
+    <div><span style='background-color: #8B4225'></span>500,000</div>
+    <div><span style='background-color: #A25626'></span>100,000</div>
+    <div><span style='background-color: #B86B25'></span>50,000</div>
+    <div><span style='background-color: #CA8323'></span>10,000</div>
+    <div><span style='background-color: #DA9C20'></span>5,000</div>
+    <div><span style='background-color: #E6B71E'></span>1,000</div>
+    <div><span style='background-color: #EED322'></span>100</div>
+    <div><span style='background-color: #F2F12D'></span>0</div>
+</div>
+
+
+<div id="tip" class="legend" ></div>
+
+<nav id='menu'>
+
+
+    <!--<input id='race_02' type='radio' name='rtoggle' value='race' checked='checked'>-->
+    <!--<label for='race_02'>Property</label>-->
+    <!--<input id='property' type='radio' name='rtoggle' value='property' >-->
+    <!--<label for='property'>race</label>-->
+    <!--<input id='price' type='radio' name='rtoggle' value='price'>-->
+    <!--<label for='price'>price</label>-->
+
+</nav>
+
+
+<button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>
+
+
 <!-- Navigation Bar-->
 <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
@@ -182,11 +288,11 @@
                 <li>
                     <a href="upload">Upload</a>
                 </li>
-                <li>
-                    <a ng-click="fetch()">Refresh</a>
-                </li>
+                <!--<li>-->
+                    <!--<button type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>-->
+                <!--</li>-->
             </ul>
-<!--             <ul class="nav navbar-nav navbar-right">
+            <!-- <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
             </ul> -->
 
@@ -196,13 +302,13 @@
     <!-- /.container -->
 </nav>
 
-<div class="leaflet-control-zoom leaflet-bar leaflet-control" id="zoom">
-    <a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a>
-    <a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a>
-</div>
-<div class="leaflet-control-easyPrint leaflet-bar leaflet-control">
-    <a class="leaflet-control-easyPrint-button leaflet-bar-part" id="leafletEasyPrint" title="My awesome print button"></a>
-</div>
+<!--<div class="leaflet-control-zoom leaflet-bar leaflet-control" id="zoom">-->
+    <!--<a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a>-->
+    <!--<a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a>-->
+<!--</div>-->
+<!--<div class="leaflet-control-easyPrint leaflet-bar leaflet-control">-->
+    <!--<a class="leaflet-control-easyPrint-button leaflet-bar-part" id="leafletEasyPrint" title="My awesome print button"></a>-->
+<!--</div>-->
 
 <div id="demo" ng-app="MyApp" ng-controller="MyCtrl">
 
@@ -215,6 +321,9 @@
     var test;
     var temp1 = 1;
     var layers1,layers2,layers3;
+    var racial = document.getElementById('racial');
+    var price = document.getElementById('price');
+    var tip = document.getElementById('tip');
 
     // define access token
 
@@ -223,10 +332,13 @@
     //create map
     var map = new mapboxgl.Map({
         container: 'map', // container id
-        //style: 'mapbox://styles/examples/cinm8cuw30024adnctbjra0zy' // map style URL from Mapbox Studio
-        style:'mapbox://styles/hfeng/civpe7lkb00322joxsyv8giwr'
+
+        style:'mapbox://styles/hfeng/civoq4pmt002s2jox6paftpke',
+        center: [-83.410083,32.810299],
+        zoom:6
 
     });
+
 
     // wait for map to load before adjusting it
     map.on('load', function() {
@@ -238,81 +350,86 @@
         //map.fitBounds([[-133.2421875, 16.972741], [-47.63671875, 52.696361]]);
         //map.fitBounds([[20,-80],[50,-85]]);
 
-//         if(layerNum==1){
-//             // define layer names
-//             layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
 
-//             // create legend
-//             layers1.forEach(function(layer) {
-//                 var color = map.getPaintProperty(layer, 'fill-color');
-//                 var item = document.createElement('div');
-//                 var key = document.createElement('span');
-//                 key.className = 'legend-key';
-//                 key.style.backgroundColor = color;
-
-// //            var value = document.createElement('span');
-// //            value.innerHTML = layer;
-// //            item.appendChild(key);
-// //            item.appendChild(value);
-// //            legend.appendChild(item);
-//             });
-
-//         }
-//         else if(layerNum==2){
-//             // define layer names
-//             layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
-
-//             // create legend
-//             layers2.forEach(function(layer) {
-//                 var color = map.getPaintProperty(layer, 'fill-color');
-//                 var item = document.createElement('div');
-//                 var key = document.createElement('span');
-//                 key.className = 'legend-key';
-//                 key.style.backgroundColor = color;
-
-//             });
-
-//         }
-//         else if(layerNum==3){
-//             // define layer names
-//             layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
-
-//             // create legend
-//             layers3.forEach(function(layer) {
-//                 var color = map.getPaintProperty(layer, 'fill-color');
-//                 var item = document.createElement('div');
-//                 var key = document.createElement('span');
-//                 key.className = 'legend-key';
-//                 key.style.backgroundColor = color;
-
-//             });
-
-//         }
-
-
-//        map.addSource("places", {
-//            "type": "geojson",
-//            "data": test
-//        });
+<!--Create Legend for three layers-->
+//        if(layerNum==1){
+//            // define layer names
+//            layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
 //
-//        // Add a layer showing the places.
-//        map.addLayer({
-//            "id": "places",
-//            "type": "symbol",
-//            "source": "places",
-//            "layout": {
-//                "icon-image": "{icon}-15",
-//                "icon-allow-overlap": true
-//            }
+//            // create legend
+//            layers1.forEach(function(layer) {
+//                var color = map.getPaintProperty(layer, 'fill-color');
+//                var item = document.createElement('div');
+//                var key = document.createElement('span');
+//                key.className = 'legend-key';
+//                key.style.backgroundColor = color;
 //
-//        });
+////            var value = document.createElement('span');
+////            value.innerHTML = layer;
+////            item.appendChild(key);
+////            item.appendChild(value);
+////            legend.appendChild(item);
+//            });
+//
+//        }
+//        else if(layerNum==2){
+//            // define layer names
+//            layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
+//
+//            // create legend
+//            layers2.forEach(function(layer) {
+//                var color = map.getPaintProperty(layer, 'fill-color');
+//                var item = document.createElement('div');
+//                var key = document.createElement('span');
+//                key.className = 'legend-key';
+//                key.style.backgroundColor = color;
+//
+//            });
+//
+//        }
+//        else if(layerNum==3){
+//            // define layer names
+//            layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
+//
+//            // create legend
+//            layers3.forEach(function(layer) {
+//                var color = map.getPaintProperty(layer, 'fill-color');
+//                var item = document.createElement('div');
+//                var key = document.createElement('span');
+//                key.className = 'legend-key';
+//                key.style.backgroundColor = color;
+//
+//            });
+//
+//        }
+        if(test!=null){
+            map.addSource("places", {
+                "type": "geojson",
+                "data": test
+            });
+
+            // Add a layer showing the places.
+            map.addLayer({
+                "id": "places",
+                "type": "symbol",
+                "source": "places",
+                "layout": {
+                    "icon-image": "{icon}-15",
+                    "icon-allow-overlap": true
+                }
+
+            });
+        }
+
+
+
 
 
     });
 
     var popup = new mapboxgl.Popup({
-        closeButton:false,
-        closeOnClick:false
+        closeButton:true,
+        closeOnClick:true
     });
 
     // change info window on hover
@@ -340,23 +457,26 @@
             if (states.length > 0) {
                 if(states[0].properties.Racial_den<=100)
                     document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % white people</em></p>";
-                else if(states[0].properties.Racial_den<2000){
-                    states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
-                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
-                }
+//                else if(states[0].properties.Racial_den<2000){
+//                    states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
+//                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
+//                }
 //                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
             } else {
                 document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
             }
         }
         else if(layerNum==3){
+            //layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
             console.log(layerNum);
             var states = map.queryRenderedFeatures(e.point, {
                 layers: layers3
             });
 
+            // Change the cursor style as a UI indicator.
+            map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
 
-            if (states[0].properties.Census_p_1 > 0) {
+            if (states.length > 0) {
                 document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % white people</em></p>";
                 //map.setFilter('layers3',['==','fill-color','#1E90FF']);
             } else {
@@ -364,9 +484,22 @@
             }
         }
 
-        var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
-        // Change the cursor style as a UI indicator.
-        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+
+    });
+
+
+    map.on('click',function(e){
+
+        var features;
+
+        if(layerNum==3){
+
+            features = map.queryRenderedFeatures(e.point, { layers: layers3 });
+        }
+
+
+
 
         if (!features.length) {
             popup.remove();
@@ -377,53 +510,171 @@
 
         // Populate the popup and set its coordinates
         // based on the feature found.
-        popup.setLngLat(feature.geometry.coordinates)
-                .setHTML(feature.properties.description)
+        var addr = [feature.properties.longitude,feature.properties.latitude];
+        popup.setLngLat(addr)
+                .setHTML(features[0].properties.White)
                 .addTo(map);
+//        if (features.length > 0) {
+//            document.getElementById('pd').innerHTML = "<h3><strong>" + features[0].properties.White + "</strong></h3>";
+//            //map.setFilter('layers3',['==','fill-color','#1E90FF']);
+//        } else {
+//            document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
+//        }
 
     });
 
 
 
+//    var layerList = document.getElementById('menu');
+//    var inputs = layerList.getElementsByTagName('input');
+//
+//    function switchLayer(layer){
+//        var layerId = layer.target.id;
+//        //alert(layerId);
+//        if(layerId=='race_02'){
+//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
+//            layerNum=2;
+//        }
+//        else if(layerId=='property'){
+//            map.setStyle('mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u');
+//            layerNum=3;
+//        }
+//        else{
+//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
+//            layerNum=1;
+//        }
+//
+//    }
+//    for(var i=0;i<inputs.length;i++){
+//        inputs[i].onclick = switchLayer;
+//    }
 
-    var layerList = document.getElementById('menu');
-    var inputs = layerList.getElementsByTagName('input');
 
-    function switchLayer(layer){
-        var layerId = layer.target.id;
-        //alert(layerId);
-        if(layerId=='race_02'){
-            map.setStyle('mapbox://styles/hfeng/civpe7lkb00322joxsyv8giwr');
-            layerNum=2;
-        }
-        else if(layerId=='property'){
-            map.setStyle('mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u');
-            layerNum=3;
-        }
-        else{
-            map.setStyle('mapbox://styles/hfeng/civpe7lkb00322joxsyv8giwr');
-            layerNum=1;
-        }
 
+    var toggleableLayerIds = [ 'Racial','Prices' ];
+
+    var status1 = 0,status2 = 0;
+
+    //for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id1 = toggleableLayerIds[0];
+    var id2 = toggleableLayerIds[1];
+
+    var link1 = document.createElement('a');
+    link1.href = '#';
+    link1.className = 'active';
+    link1.textContent = id1;
+
+    var link2 = document.createElement('a');
+    link2.href = '#';
+    link2.className = 'active';
+    link2.textContent = id2;
+
+    link1.onclick = function (e) {
+        //var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (status1 == 0) {
+            map.setStyle('mapbox://styles/hfeng/civpgvwe800342joxom3ofvhe');//Racial_density_03-copy
+            layerNum = 2;
+
+//                setTimeout((function(){
+//                    map.addSource('museum', {
+//                        type: 'vector',
+//                        url: 'mapbox://hfeng.9upajrp6'
+//                    });
+//                    map.addLayer({
+//                        'id': 'museums',
+//                        'type': 'circle',
+//                        'source': 'museum',
+//                        'layout': {
+//                            'visibility': 'visible'
+//                        },
+//                        'paint': {
+//                            'circle-radius': 5,
+//                            'circle-color': 'rgba(55,148,179,1)'
+//                        },
+//                        'source-layer': 'Marker-3kpsk9'
+//                    });
+//                }),2000);
+            status1 = 1;
+            status2 = 0;
+            this.className = '';
+            link2.className = 'active'
+            racial.style.display='block';
+            price.style.display='none';
+        }
+        else if (status1 == 1&&status2==0) {
+            map.setStyle('mapbox://styles/hfeng/civoq4pmt002s2jox6paftpke');//Tooltip
+            this.className = 'active';
+            link2.className = 'active';
+            status1 = 0;
+            layerNum=-1;
+            racial.style.display='none';
+            tip.style.display='block';
+
+        }
     }
-    for(var i=0;i<inputs.length;i++){
-        inputs[i].onclick = switchLayer;
-    }
-//    Print
-//    map.easyPrint({
-//        title: 'My awesome print button',
-//        elementsToHide: 'p, h2, .gitButton'
-//    }).addTo(map);
 
-//    var test;
+    link2.onclick = function (e) {
+        //var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
 
+        if (status2 == 0) {
+
+            map.setStyle('mapbox://styles/hfeng/civpe7lkb00322joxsyv8giwr');//Census_tract_light_03
+
+//            setTimeout((function () {
+//                map.addSource('museum', {
+//                    type: 'vector',
+//                    url: 'mapbox://hfeng.9upajrp6'
+//                });
+//                map.addLayer({
+//                    'id': 'museums',
+//                    'type': 'circle',
+//                    'source': 'museum',
+//                    'layout': {
+//                        'visibility': 'visible'
+//                    },
+//                    'paint': {
+//                        'circle-radius': 5,
+//                        'circle-color': 'rgba(55,148,179,1)'
+//                    },
+//                    'source-layer': 'Marker-3kpsk9'
+//                });
+//            }), 2000);
+
+            status2 = 1;
+            status1 = 0;
+            this.className = '';
+            link1.className = 'active';
+            layerNum = 3;
+            racial.style.display='none';
+            price.style.display='block';
+        }
+        else if (status2 == 1&&status1==0) {
+            map.setStyle('mapbox://styles/hfeng/civoq4pmt002s2jox6paftpke');
+            this.className = 'active';
+            link1.className = 'active';
+            status2 = 0;
+            layerNum=-1;
+            price.style.display='none';
+            tip.style.display='block';
+
+        }
+    };
+
+    var layers = document.getElementById('menu');
+    layers.appendChild(link1);
+    layers.appendChild(link2);
+
+
+
+    var i =0;
     var app = angular.module('MyApp',[]);
     app.controller('MyCtrl',function($scope,$http){
-//        $http.get("/address").success(function(data){
-//            //$scope.demo=data;
-//            //alert( "Load was performed. " + data );
-//            temp=data;
-//        });
+
         $scope.fetch = function(){
             $http.get("/fetch").success(function(data){
                 test = data;
