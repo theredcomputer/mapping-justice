@@ -140,7 +140,7 @@
 
                    <div class="control-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
                        <label class="control-label">Address 1</label>
-                          <input ng-model="addMe" id="address-line1" name="address-line1" type="text" placeholder="Address line 1"
+                          <input ng-model="addLine1" id="address-line1" name="address-line1" type="text" placeholder="Address line 1"
                            class="input-xlarge" >
                    </div>
 
@@ -148,7 +148,7 @@
                 <div class="control-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
                     <label class="control-label">Address 2</label>
 
-                        <input id="address-line2" name="address-line2" type="text" placeholder="Address line 2" class="input-xlarge">
+                        <input ng-model="addLine2" id="address-line2" name="address-line2" type="text" placeholder="Address line 2" class="input-xlarge">
 
 
                 </div>
@@ -229,7 +229,7 @@
                 <div class="control-group col-xs-12 col-sm-6 col-md-6 col-lg-12">
                     <label class="control-label">Zip Code</label>
 
-                        <input id="zipcode" name="zipcode" type="text" placeholder="Zip Code"
+                        <input ng-model="Zipcode" id="zipcode" name="zipcode" type="text" placeholder="Zip Code"
                         class="input-xlarge">
 
                 </div>
@@ -319,7 +319,7 @@
 //
 //            }
                 var address;
-                address =$scope.addMe;
+                address =$scope.addLine1+" "+$scope.addLine2+" "+$scope.typeahead+" "+$scope.Zipcode;
 //            geocoder.query(address);
 //            console.log(address);
 
