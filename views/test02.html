@@ -170,6 +170,13 @@
             left: 10px;
             width: 120px;
         }
+        #export{
+            position: absolute;
+            z-index:1;
+            top: 220px;
+            left: 10px;
+            width: 120px;
+        }
 
 
     </style>
@@ -264,6 +271,8 @@
 
 
 <button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>
+<!--<button id="export" onclick="print()">export</button>-->
+<button id="export" onclick="myFunction()">export</button>
 
 
 <!-- Navigation Bar-->
@@ -335,8 +344,8 @@
 
         style:'mapbox://styles/hfeng/civoq4pmt002s2jox6paftpke',
         center: [-83.410083,32.810299],
-        zoom:6
-
+        zoom:6,
+        preserveDrawingBuffer:true
     });
 
 
@@ -705,6 +714,14 @@
         };
 
     });
+
+    function myFunction(){
+//        var canvas = document.getElementById('map');
+//        var dataUrl = canvas.toDataURL();
+        window.open(map.getCanvas().toDataURL(),"toDataURL() image","width=1200,height=2000");
+    }
+
+
 
 
 
