@@ -354,7 +354,7 @@
     // define access token
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiaGZlbmciLCJhIjoiY2lzdndodTI0MDJvYjJ5cGd5ZnI2ZmJnNyJ9.D4VXSWW1-uWiSiB4bYRXOw';
-    var layerNum=2;
+    var layerNum=-1;
     //create map
     var map = new mapboxgl.Map({
         container: 'map', // container id
@@ -461,19 +461,43 @@
     // change info window on hover
     map.on('mousemove', function (e) {
         var states;
-        if(layerNum==1){
+        if(layerNum==-1){
             console.log(layerNum);
             states = map.queryRenderedFeatures(e.point, {
                 layers: layers1
             });
+            var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
-            if (states.length > 0) {
-                //document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.LATITUDE+", "+ states[0].properties.LONGITUDE + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
-                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Address + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
-                //document.getElementById('pd').innerHTML = Json.stringify(features,null,2);
-            } else {
-                document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
+//            if (states.length > 0) {
+//                //document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.LATITUDE+", "+ states[0].properties.LONGITUDE + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
+//                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Address + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
+//                //document.getElementById('pd').innerHTML = Json.stringify(features,null,2);
+//            } else {
+//                document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
+//            }
+
+            if(states[0].properties.White>=0){
+                var pro = parseInt(100-states[0].properties.White);
+                var addr = [states[0].properties.longitude,states[0].properties.latitude];
+                popup.setLngLat(addr)
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                        .addTo(map);
+                document.getElementById('address').innerHTML=addr;
+                document.getElementById('pro').innerHTML=pro;
             }
+            else if(points.length>0){
+                var point = points[0];
+                //var lalo = [point.properties.longitude,point.properties.latitude];
+                console.log(point.geometry.coordinates);
+                var lo = point.geometry.coordinates[0];
+                var la = point.geometry.coordinates[1];
+                popup.setLngLat(point.geometry.coordinates)
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p>')
+                        .addTo(map)
+                document.getElementById('address').innerHTML=[lo,la];
+            }
+
+
         }
         else if(layerNum==2){
             console.log(layerNum);
@@ -576,7 +600,7 @@
         else if(layerNum==3){
             features = map.queryRenderedFeatures(e.point, { layers: layers3 });
         }
-        else if(layerNum==1){
+        else if(layerNum==-1){
             features = map.queryRenderedFeatures(e.point, { layers: layers1 });
         }
 
@@ -719,7 +743,7 @@
             status1 = 0;
             layerNum=-1;
             racial.style.display='none';
-            tip.style.display='block';
+            tip.style.display='none';
 
         }
     }
@@ -768,7 +792,7 @@
             status2 = 0;
             layerNum=-1;
             price.style.display='none';
-            tip.style.display='block';
+            tip.style.display='none';
 
         }
     };
@@ -829,7 +853,7 @@
         map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');
         layerNum=-1;
         price.style.display='none';
-        tip.style.display='block';
+        tip.style.display='none';
     }
 
 
