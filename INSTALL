@@ -19,6 +19,17 @@ nginx
     To install nginx on Linux, run:
     $ sudo apt-get install -y nginx
 
+MongoDB
+
+    Go to https://www.mongodb.com/download-center?filter=enterprise&gclid=Cj0KEQiA08rBBRDUn4qproqwzYMBEiQAqpzns7UbS_M0a_zlxwHy3xECl9WveImnved6GC9cgtA7MgUaAkAm8P8HAQ#enterprise
+    to download the MongDB database application
+    
+    in Terminal, navigate to it's bin folder and run 
+    mongod --dbpath ~/mapping-justice/userdata/ --port 27017 --smallfiles
+    to establish connection on port 27017 (localhost)
+    
+    
+
 ===============================================================================
 
 Configuring the environment:
