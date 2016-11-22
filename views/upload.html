@@ -30,6 +30,7 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.3.1/mapbox-gl-geocoder.js'></script>
 
 
 
@@ -85,6 +86,9 @@
         }
         #button2{
             width:28%;
+        }
+        .mapboxgl-ctrl-geocoder.mapboxgl-ctrl{
+            display:none;
         }
     </style>
 
@@ -290,7 +294,9 @@
         var map = new mapboxgl.Map({
             container: 'map', // container id
             //style: 'mapbox://styles/examples/cinm8cuw30024adnctbjra0zy' // map style URL from Mapbox Studio
-            style:'mapbox://styles/hfeng/civpe7lkb00322joxsyv8giwr'
+            style:'mapbox://styles/mapbox/streets-v9',
+            zoom:8,
+            center:[-84.393753,33.774326]
 
         });
         var temp1;
@@ -298,6 +304,10 @@
         var point=2;
         var app = angular.module("myShoppingList", []);
         app.controller("myCtrl", function($scope,$http) {
+
+            var geocoder = new mapboxgl.Geocoder();
+            map.addControl(geocoder);
+
             var i=0;
             $scope.addItem = function () {
 
@@ -320,7 +330,7 @@
 //            }
                 var address;
                 address =$scope.addLine1+" "+$scope.addLine2+" "+$scope.typeahead+" "+$scope.Zipcode;
-//            geocoder.query(address);
+                geocoder.query(address);
 //            console.log(address);
 
 

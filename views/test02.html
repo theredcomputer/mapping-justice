@@ -101,14 +101,15 @@
 
 
 
-        #menu {
-            position: absolute;
-            background: #fff;
-            padding: 5px;
-            //margin-top: 0px;
-           // margin-right: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
+        /*#menu {*/
+            /*position: absolute;*/
+            /*background: #fff;*/
+            /*padding: 5px;*/
+            /*//margin-top: 0px;*/
+           /*// margin-right: 10px;*/
+            /*font-family: 'Open Sans', sans-serif;*/
+
+        /*}*/
         /*#leafletEasyPrint{*/
 
             /*//padding:5px;*/
@@ -128,53 +129,73 @@
             top: 60px;
             left: 10px;
             border-radius: 3px;
-            width: 120px;
+            width: 140px;
+            height: 160px;
             border: 1px solid rgba(0,0,0,0.4);
             font-family: 'Open Sans', sans-serif;
+            opacity: 0.8;
         }
 
-        #menu a {
-            font-size: 13px;
+        #menu input {
+            font-size: 10px;
             color: #404040;
-            display: block;
-            margin: 0;
-            padding: 0;
-            padding: 10px;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(0,0,0,0.25);
-            text-align: center;
+            /*display: block;*/
+            /*margin: 0;*/
+            /*padding: 0;*/
+            /*padding: 10px;*/
+            /*text-decoration: none;*/
+            /*border-bottom: 1px solid rgba(0,0,0,0.25);*/
+            /*text-align: center;*/
+            margin-top: 15px;
+            opacity: 1;
         }
 
-        #menu a:last-child {
-            border: none;
-        }
+        /*#menu a:last-child {*/
+            /*border: none;*/
+        /*}*/
 
-        #menu a:hover {
-            background-color: #f8f8f8;
-            color: #404040;
-        }
+        /*#menu a:hover {*/
+            /*background-color: #f8f8f8;*/
+            /*color: #404040;*/
+        /*}*/
 
-        #menu a.active {
+        #menu .active {
             background-color: #3887be;
-            color: #ffffff;
+            color: #3887be;
         }
 
-        #menu a.active:hover {
-            background: #3074a4;
-        }
+        /*#menu a.active:hover {*/
+            /*background: #3074a4;*/
+        /*}*/
 
         .btn.btn-primary{
             position: absolute;
             z-index:1;
-            top: 160px;
-            left: 10px;
+            top: 140px;
+            left: 18px;
             width: 120px;
+            background: #2084c1;
+            font-size: 10px;
+            color: #ffffff;
+        }
+        .btn.btn-primary:hover{
+            background: #1a6a9b;
+        }
+        .btn.btn-primary .active{
+            background:#005284;
         }
         #export{
             position: absolute;
             z-index:1;
-            top: 220px;
-            left: 10px;
+            top: 180px;
+            left: 18px;
+            width: 120px;
+        }
+        #reset{
+            position: absolute;
+            z-index:1;
+            top: 100px;
+            left: 18px;
             width: 120px;
         }
 
@@ -227,16 +248,12 @@
     <!--<div><span class="legend-key" style="background-color: #228B22;"></span>-->
     <!--<span>60+</span></div>-->
 
-    <h4>Population</h4>
-    <div><span style='background-color: #723122'></span>25,000,000</div>
-    <div><span style='background-color: #8B4225'></span>10,000,000</div>
-    <div><span style='background-color: #A25626'></span>7,500,000</div>
-    <div><span style='background-color: #B86B25'></span>5,000,000</div>
-    <div><span style='background-color: #CA8323'></span>2,500,000</div>
-    <div><span style='background-color: #DA9C20'></span>1,000,000</div>
-    <div><span style='background-color: #E6B71E'></span>750,000</div>
-    <div><span style='background-color: #EED322'></span>500,000</div>
-    <div><span style='background-color: #F2F12D'></span>0</div>
+    <h4>Racial Desinty of Black</h4>
+    <div><span style='background-color: #ffffcc'></span>0-20%</div>
+    <div><span style='background-color: #c2e699'></span>20-40%</div>
+    <div><span style='background-color: #78c679'></span>40-60%</div>
+    <div><span style='background-color: #31a354'></span>60-80%</div>
+    <div><span style='background-color: #006837'></span>80-100%</div>
 
 </div>
 
@@ -260,19 +277,19 @@
 <nav id='menu'>
 
 
-    <!--<input id='race_02' type='radio' name='rtoggle' value='race' checked='checked'>-->
+    &nbsp;&nbsp;<input id='race_02' type='radio' name='rtoggle' value='race' >Racial&nbsp;&nbsp;
     <!--<label for='race_02'>Property</label>-->
-    <!--<input id='property' type='radio' name='rtoggle' value='property' >-->
+    <input id='property' type='radio' name='rtoggle' value='property' >Price
     <!--<label for='property'>race</label>-->
     <!--<input id='price' type='radio' name='rtoggle' value='price'>-->
     <!--<label for='price'>price</label>-->
 
 </nav>
+<button id="reset" class="btn btn-primary" onclick="myReset()">Reset</button>
 
-
-<button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>
+<button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()" id="fresh">Refresh</button>
 <!--<button id="export" onclick="print()">export</button>-->
-<button id="export" onclick="myFunction()">export</button>
+<button id="export" class="btn btn-primary" onclick="myFunction()">export</button>
 
 
 <!-- Navigation Bar-->
@@ -329,7 +346,7 @@
 <script>
     var test;
     var temp1 = 1;
-    var layers1,layers2,layers3;
+    var layers1,layers2,layers3,places;
     var racial = document.getElementById('racial');
     var price = document.getElementById('price');
     var tip = document.getElementById('tip');
@@ -342,9 +359,9 @@
     var map = new mapboxgl.Map({
         container: 'map', // container id
 
-        style:'mapbox://styles/hfeng/civoq4pmt002s2jox6paftpke',
-        center: [-83.410083,32.810299],
-        zoom:6,
+        style:'mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2',//Tooltip01-copy
+        center: [-84.393753,33.774326],
+        zoom:10,
         preserveDrawingBuffer:true
     });
 
@@ -443,9 +460,10 @@
 
     // change info window on hover
     map.on('mousemove', function (e) {
+        var states;
         if(layerNum==1){
             console.log(layerNum);
-            var states = map.queryRenderedFeatures(e.point, {
+            states = map.queryRenderedFeatures(e.point, {
                 layers: layers1
             });
 
@@ -459,39 +477,88 @@
         }
         else if(layerNum==2){
             console.log(layerNum);
-            var states = map.queryRenderedFeatures(e.point, {
+            states = map.queryRenderedFeatures(e.point, {
                 layers: layers2
             });
+            var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
-            if (states.length > 0) {
-                if(states[0].properties.Racial_den<=100)
-                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % white people</em></p>";
+
+            if(states[0].properties.Racial_den>=0)
+                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % Black people</em></p>";
 //                else if(states[0].properties.Racial_den<2000){
 //                    states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
 //                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
 //                }
 //                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
-            } else {
+
+
+            else if(states[0].properties.White>=0){
+                var pro = parseInt(100-states[0].properties.White);
+                var addr = [states[0].properties.longitude,states[0].properties.latitude];
+                popup.setLngLat(addr)
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                        .addTo(map);
+                document.getElementById('address').innerHTML=addr;
+                document.getElementById('pro').innerHTML=pro;
+            }
+            else if(points.length>0){
+                var point = points[0];
+                //var lalo = [point.properties.longitude,point.properties.latitude];
+                console.log(point.geometry.coordinates);
+                var lo = point.geometry.coordinates[0];
+                var la = point.geometry.coordinates[1];
+                popup.setLngLat(point.geometry.coordinates)
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p>')
+                        .addTo(map)
+                document.getElementById('address').innerHTML=[lo,la];
+            }
+
+
+            else {
                 document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
             }
         }
         else if(layerNum==3){
             //layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
             console.log(layerNum);
-            var states = map.queryRenderedFeatures(e.point, {
+            states = map.queryRenderedFeatures(e.point, {
                 layers: layers3
             });
+            var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
             // Change the cursor style as a UI indicator.
-            map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
+            //map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
 
-            if (states.length > 0) {
-                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % white people</em></p>";
+            if (states[0].properties.Census_p_1 > 0) {
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % Black people</em></p>";
                 //map.setFilter('layers3',['==','fill-color','#1E90FF']);
-            } else {
+            }
+            else if(states[0].properties.White>=0){
+                var pro = parseInt(100-states[0].properties.White);
+                var addr = [states[0].properties.longitude,states[0].properties.latitude];
+                popup.setLngLat(addr)
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                        .addTo(map);
+                document.getElementById('address').innerHTML=addr;
+                document.getElementById('pro').innerHTML=pro;
+            }
+            else if(points.length>0){
+                var point = points[0];
+                //var lalo = [point.properties.longitude,point.properties.latitude];
+                console.log(point.geometry.coordinates);
+                var lo = point.geometry.coordinates[0];
+                var la = point.geometry.coordinates[1];
+                popup.setLngLat(point.geometry.coordinates)
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p>')
+                        .addTo(map)
+                document.getElementById('address').innerHTML=[lo,la];
+            }
+
+            else {
                 document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
             }
         }
+
 
 
 
@@ -502,27 +569,53 @@
 
         var features;
 
-        if(layerNum==3){
+        if(layerNum==2){
 
+            features = map.queryRenderedFeatures(e.point, { layers: layers2 });
+        }
+        else if(layerNum==3){
             features = map.queryRenderedFeatures(e.point, { layers: layers3 });
+        }
+        else if(layerNum==1){
+            features = map.queryRenderedFeatures(e.point, { layers: layers1 });
+        }
+
+        var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
+        if(points.length){
+            var point = points[0];
+            //var lalo = [point.properties.longitude,point.properties.latitude];
+            console.log(point.geometry.coordinates);
+            var lo = parseInt(point.geometry.coordinates[0]);
+            var la = parseInt(point.geometry.coordinates[1]);
+            popup.setLngLat(point.geometry.coordinates)
+                    .setHTML('<br><strong>Address: </strong><p id="address"></p>')
+                    .addTo(map)
+            document.getElementById('address').innerHTML=[lo,la];
         }
 
 
 
 
-        if (!features.length) {
+
+
+        else if (!features.length) {
             popup.remove();
             return;
         }
+        else{
+            var feature = features[0];
 
-        var feature = features[0];
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            var pro = parseInt(100-features[0].properties.White);
+            var addr = [feature.properties.longitude,feature.properties.latitude];
+            popup.setLngLat(addr)
+                    .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                    .addTo(map);
+            document.getElementById('address').innerHTML=addr;
+            document.getElementById('pro').innerHTML=pro;
+        }
 
-        // Populate the popup and set its coordinates
-        // based on the feature found.
-        var addr = [feature.properties.longitude,feature.properties.latitude];
-        popup.setLngLat(addr)
-                .setHTML(features[0].properties.White)
-                .addTo(map);
 //        if (features.length > 0) {
 //            document.getElementById('pd').innerHTML = "<h3><strong>" + features[0].properties.White + "</strong></h3>";
 //            //map.setFilter('layers3',['==','fill-color','#1E90FF']);
@@ -568,15 +661,21 @@
     var id1 = toggleableLayerIds[0];
     var id2 = toggleableLayerIds[1];
 
-    var link1 = document.createElement('a');
-    link1.href = '#';
-    link1.className = 'active';
-    link1.textContent = id1;
+    var link1 = document.getElementById('race_02');
+//    link1.href = '#';
+//    link1.className = 'active';
+//    link1.textContent = id1;
+//    link1.type='radio';
+//    link1.name='Racial';
+//    link1.className='active';
 
-    var link2 = document.createElement('a');
-    link2.href = '#';
-    link2.className = 'active';
-    link2.textContent = id2;
+    var link2 = document.getElementById('property');
+//    link2.href = '#';
+//    link2.className = 'active';
+//    link2.textContent = id2;
+//    link2.type='radio';
+//    link2.name='Price';
+//    link2.className='';
 
     link1.onclick = function (e) {
         //var clickedLayer = this.textContent;
@@ -584,7 +683,7 @@
         e.stopPropagation();
 
         if (status1 == 0) {
-            map.setStyle('mapbox://styles/hfeng/civpgvwe800342joxom3ofvhe');//Racial_density_03-copy
+            map.setStyle('mapbox://styles/hfeng/civsurjxt001j2juk2uv843ml');//Racial_density_03-copy-copy
             layerNum = 2;
 
 //                setTimeout((function(){
@@ -608,15 +707,15 @@
 //                }),2000);
             status1 = 1;
             status2 = 0;
-            this.className = '';
-            link2.className = 'active'
+//            this.className = '';
+            link2.className = "active"
             racial.style.display='block';
             price.style.display='none';
         }
         else if (status1 == 1&&status2==0) {
-            map.setStyle('mapbox://styles/hfeng/civoq4pmt002s2jox6paftpke');//Tooltip
-            this.className = 'active';
-            link2.className = 'active';
+            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+//            this.className = 'active';
+//            link2.className = 'active';
             status1 = 0;
             layerNum=-1;
             racial.style.display='none';
@@ -656,16 +755,16 @@
 
             status2 = 1;
             status1 = 0;
-            this.className = '';
-            link1.className = 'active';
+//            this.className = '';
+//            link1.className = 'active';
             layerNum = 3;
             racial.style.display='none';
             price.style.display='block';
         }
         else if (status2 == 1&&status1==0) {
-            map.setStyle('mapbox://styles/hfeng/civoq4pmt002s2jox6paftpke');
-            this.className = 'active';
-            link1.className = 'active';
+            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+//            this.className = 'active';
+//            link1.className = 'active';
             status2 = 0;
             layerNum=-1;
             price.style.display='none';
@@ -674,9 +773,9 @@
         }
     };
 
-    var layers = document.getElementById('menu');
-    layers.appendChild(link1);
-    layers.appendChild(link2);
+//    var layers = document.getElementById('menu');
+//    layers.appendChild(link1);
+//    layers.appendChild(link2);
 
 
 
@@ -684,7 +783,10 @@
     var app = angular.module('MyApp',[]);
     app.controller('MyCtrl',function($scope,$http){
 
+
+
         $scope.fetch = function(){
+            //document.getElementById('fresh').className='active';
             $http.get("/fetch").success(function(data){
                 test = data;
 
@@ -719,6 +821,15 @@
 //        var canvas = document.getElementById('map');
 //        var dataUrl = canvas.toDataURL();
         window.open(map.getCanvas().toDataURL(),"toDataURL() image","width=1200,height=2000");
+    }
+
+    function myReset(){
+        status1=0;
+        status2=0;
+        map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');
+        layerNum=-1;
+        price.style.display='none';
+        tip.style.display='block';
     }
 
 
