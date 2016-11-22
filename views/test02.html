@@ -259,16 +259,13 @@
 
 
 <div id='price' class='legend' style='display: none;'>
-    <h4>Population</h4>
-    <div><span style='background-color: #723122'></span>1,000,000</div>
-    <div><span style='background-color: #8B4225'></span>500,000</div>
-    <div><span style='background-color: #A25626'></span>100,000</div>
-    <div><span style='background-color: #B86B25'></span>50,000</div>
-    <div><span style='background-color: #CA8323'></span>10,000</div>
-    <div><span style='background-color: #DA9C20'></span>5,000</div>
-    <div><span style='background-color: #E6B71E'></span>1,000</div>
-    <div><span style='background-color: #EED322'></span>100</div>
-    <div><span style='background-color: #F2F12D'></span>0</div>
+    <h4>Median Price</h4>
+    <div><span style='background-color: #eff3ff'></span><14,000</div>
+    <div><span style='background-color: #bdd7e7'></span>14,000~18,000</div>
+    <div><span style='background-color: #6baed6'></span>18,000~22,000</div>
+    <div><span style='background-color: #3182bd'></span>22,000~26,000</div>
+    <div><span style='background-color: #08519c'></span>26,000~30,000</div>
+
 </div>
 
 
@@ -553,8 +550,8 @@
             // Change the cursor style as a UI indicator.
             //map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
 
-            if (states[0].properties.Census_p_1 > 0) {
-                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Census_p_2 + "</strong></h3><p><strong><em>" + states[0].properties.Census_p_1 + "</strong> % Black people</em></p>";
+            if (states[0].properties.median_MED > 0) {
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.median_ADD + "</strong></h3><p><strong><em>" + "$"+states[0].properties.median_MED + "</strong></em></p>";
                 //map.setFilter('layers3',['==','fill-color','#1E90FF']);
             }
             else if(states[0].properties.White>=0){
@@ -651,64 +648,19 @@
 
 
 
-//    var layerList = document.getElementById('menu');
-//    var inputs = layerList.getElementsByTagName('input');
-//
-//    function switchLayer(layer){
-//        var layerId = layer.target.id;
-//        //alert(layerId);
-//        if(layerId=='race_02'){
-//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
-//            layerNum=2;
-//        }
-//        else if(layerId=='property'){
-//            map.setStyle('mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u');
-//            layerNum=3;
-//        }
-//        else{
-//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
-//            layerNum=1;
-//        }
-//
-//    }
-//    for(var i=0;i<inputs.length;i++){
-//        inputs[i].onclick = switchLayer;
-//    }
-
-
-
-    var toggleableLayerIds = [ 'Racial','Prices' ];
-
+    var layerList = document.getElementById('menu');
+    var inputs = layerList.getElementsByTagName('input');
     var status1 = 0,status2 = 0;
 
-    //for (var i = 0; i < toggleableLayerIds.length; i++) {
-    var id1 = toggleableLayerIds[0];
-    var id2 = toggleableLayerIds[1];
-
-    var link1 = document.getElementById('race_02');
-//    link1.href = '#';
-//    link1.className = 'active';
-//    link1.textContent = id1;
-//    link1.type='radio';
-//    link1.name='Racial';
-//    link1.className='active';
-
-    var link2 = document.getElementById('property');
-//    link2.href = '#';
-//    link2.className = 'active';
-//    link2.textContent = id2;
-//    link2.type='radio';
-//    link2.name='Price';
-//    link2.className='';
-
-    link1.onclick = function (e) {
-        //var clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (status1 == 0) {
-            map.setStyle('mapbox://styles/hfeng/civsurjxt001j2juk2uv843ml');//Racial_density_03-copy-copy
-            layerNum = 2;
+    function switchLayer(layer){
+        var layerId = layer.target.id;
+        //alert(layerId);
+        if(layerId=='race_02'){
+//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
+//            layerNum=2;
+            if (status1 == 0) {
+                map.setStyle('mapbox://styles/hfeng/civsurjxt001j2juk2uv843ml');//Racial_density_03-copy-copy-copy
+                layerNum = 2;
 
 //                setTimeout((function(){
 //                    map.addSource('museum', {
@@ -729,33 +681,30 @@
 //                        'source-layer': 'Marker-3kpsk9'
 //                    });
 //                }),2000);
-            status1 = 1;
-            status2 = 0;
+                status1 = 1;
+                status2 = 0;
 //            this.className = '';
-            link2.className = "active"
-            racial.style.display='block';
-            price.style.display='none';
-        }
-        else if (status1 == 1&&status2==0) {
-            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
-//            this.className = 'active';
-//            link2.className = 'active';
-            status1 = 0;
-            layerNum=-1;
-            racial.style.display='none';
-            tip.style.display='none';
+                link2.className = "active"
+                racial.style.display='block';
+                price.style.display='none';
+            }
+            else if (status1 == 1&&status2==0) {
+                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+
+                status1 = 0;
+                layerNum=-1;
+                racial.style.display='none';
+                tip.style.display='none';
+
+            }
 
         }
-    }
+        else if(layerId=='property'){
+//            map.setStyle('mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u');
+//            layerNum=3;
+            if (status2 == 0) {
 
-    link2.onclick = function (e) {
-        //var clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (status2 == 0) {
-
-            map.setStyle('mapbox://styles/hfeng/civpe7lkb00322joxsyv8giwr');//Census_tract_light_03
+                map.setStyle('mapbox://styles/hfeng/civt1avbk00092jqvb3iayurn');//Price   //Census_tract_light_03
 
 //            setTimeout((function () {
 //                map.addSource('museum', {
@@ -777,25 +726,157 @@
 //                });
 //            }), 2000);
 
-            status2 = 1;
-            status1 = 0;
+                status2 = 1;
+                status1 = 0;
 //            this.className = '';
 //            link1.className = 'active';
-            layerNum = 3;
-            racial.style.display='none';
-            price.style.display='block';
-        }
-        else if (status2 == 1&&status1==0) {
-            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+                layerNum = 3;
+                racial.style.display='none';
+                price.style.display='block';
+            }
+            else if (status2 == 1&&status1==0) {
+                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
 //            this.className = 'active';
 //            link1.className = 'active';
-            status2 = 0;
-            layerNum=-1;
-            price.style.display='none';
-            tip.style.display='none';
+                status2 = 0;
+                layerNum=-1;
+                price.style.display='none';
+                tip.style.display='none';
+
+            }
 
         }
-    };
+//        else{
+//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
+//            layerNum=1;
+//        }
+
+    }
+    for(var i=0;i<inputs.length;i++){
+        inputs[i].onclick = switchLayer;
+    }
+
+
+
+//    var toggleableLayerIds = [ 'Racial','Prices' ];
+//
+//    var status1 = 0,status2 = 0;
+//
+//    //for (var i = 0; i < toggleableLayerIds.length; i++) {
+//    var id1 = toggleableLayerIds[0];
+//    var id2 = toggleableLayerIds[1];
+//
+//    var link1 = document.getElementById('race_02');
+////    link1.href = '#';
+////    link1.className = 'active';
+////    link1.textContent = id1;
+////    link1.type='radio';
+////    link1.name='Racial';
+////    link1.className='active';
+//
+//    var link2 = document.getElementById('property');
+////    link2.href = '#';
+////    link2.className = 'active';
+////    link2.textContent = id2;
+////    link2.type='radio';
+////    link2.name='Price';
+////    link2.className='';
+//
+//    link1.onclick = function (e) {
+//        //var clickedLayer = this.textContent;
+//        e.preventDefault();
+//        e.stopPropagation();
+//
+//        if (status1 == 0) {
+//            map.setStyle('mapbox://styles/hfeng/civsurjxt001j2juk2uv843ml');//Racial_density_03-copy-copy-copy
+//            layerNum = 2;
+//
+////                setTimeout((function(){
+////                    map.addSource('museum', {
+////                        type: 'vector',
+////                        url: 'mapbox://hfeng.9upajrp6'
+////                    });
+////                    map.addLayer({
+////                        'id': 'museums',
+////                        'type': 'circle',
+////                        'source': 'museum',
+////                        'layout': {
+////                            'visibility': 'visible'
+////                        },
+////                        'paint': {
+////                            'circle-radius': 5,
+////                            'circle-color': 'rgba(55,148,179,1)'
+////                        },
+////                        'source-layer': 'Marker-3kpsk9'
+////                    });
+////                }),2000);
+//            status1 = 1;
+//            status2 = 0;
+////            this.className = '';
+//            link2.className = "active"
+//            racial.style.display='block';
+//            price.style.display='none';
+//        }
+//        else if (status1 == 1&&status2==0) {
+//            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+////            this.className = 'active';
+////            link2.className = 'active';
+//            status1 = 0;
+//            layerNum=-1;
+//            racial.style.display='none';
+//            tip.style.display='none';
+//
+//        }
+//    }
+//
+//    link2.onclick = function (e) {
+//        //var clickedLayer = this.textContent;
+//        e.preventDefault();
+//        e.stopPropagation();
+//
+//        if (status2 == 0) {
+//
+//            map.setStyle('mapbox://styles/hfeng/civt1avbk00092jqvb3iayurn');//Price   //Census_tract_light_03
+//
+////            setTimeout((function () {
+////                map.addSource('museum', {
+////                    type: 'vector',
+////                    url: 'mapbox://hfeng.9upajrp6'
+////                });
+////                map.addLayer({
+////                    'id': 'museums',
+////                    'type': 'circle',
+////                    'source': 'museum',
+////                    'layout': {
+////                        'visibility': 'visible'
+////                    },
+////                    'paint': {
+////                        'circle-radius': 5,
+////                        'circle-color': 'rgba(55,148,179,1)'
+////                    },
+////                    'source-layer': 'Marker-3kpsk9'
+////                });
+////            }), 2000);
+//
+//            status2 = 1;
+//            status1 = 0;
+////            this.className = '';
+////            link1.className = 'active';
+//            layerNum = 3;
+//            racial.style.display='none';
+//            price.style.display='block';
+//        }
+//        else if (status2 == 1&&status1==0) {
+//            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+////            this.className = 'active';
+////            link1.className = 'active';
+//            status2 = 0;
+//            layerNum=-1;
+//            price.style.display='none';
+//            tip.style.display='none';
+//
+//        }
+//    };
 
 //    var layers = document.getElementById('menu');
 //    layers.appendChild(link1);
@@ -852,6 +933,8 @@
         status2=0;
         map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');
         layerNum=-1;
+        document.getElementById('race_02').checked=false;
+        document.getElementById('property').checked=false;
         price.style.display='none';
         tip.style.display='none';
     }
