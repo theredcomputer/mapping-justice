@@ -25,8 +25,9 @@ MongoDB
     to download the MongDB database application
     
     in Terminal, navigate to it's bin folder and run 
-    mongod --dbpath ~/mapping-justice/userdata/ --port 27017 --smallfiles
+    mongod --dbpath ~/Downloads/mapping-justice-master/userdata/ --port 27017 --smallfiles
     to establish connection on port 27017 (localhost)
+    replace the directory to wherever the user's data is stored.
     
     
 
