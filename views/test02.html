@@ -260,11 +260,11 @@
 
 <div id='price' class='legend' style='display: none;'>
     <h4>Median Price</h4>
-    <div><span style='background-color: #eff3ff'></span><14,000</div>
-    <div><span style='background-color: #bdd7e7'></span>14,000~18,000</div>
-    <div><span style='background-color: #6baed6'></span>18,000~22,000</div>
-    <div><span style='background-color: #3182bd'></span>22,000~26,000</div>
-    <div><span style='background-color: #08519c'></span>26,000~30,000</div>
+    <div><span style='background-color: #eff3ff'></span><50,000</div>
+    <div><span style='background-color: #bdd7e7'></span>50,000~100,000</div>
+    <div><span style='background-color: #6baed6'></span>100,000~150,000</div>
+    <div><span style='background-color: #3182bd'></span>150,000~200,000</div>
+    <div><span style='background-color: #08519c'></span>200,000~250,000</div>
 
 </div>
 
@@ -550,8 +550,8 @@
             // Change the cursor style as a UI indicator.
             //map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
 
-            if (states[0].properties.median_MED > 0) {
-                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.median_ADD + "</strong></h3><p><strong><em>" + "$"+states[0].properties.median_MED + "</strong></em></p>";
+            if (states[0].properties.Price_medi > 0) {
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Price_me_1 + "</strong></h3><p><strong><em>" + "$"+states[0].properties.Price_medi + "</strong></em></p>";
                 //map.setFilter('layers3',['==','fill-color','#1E90FF']);
             }
             else if(states[0].properties.White>=0){
@@ -659,7 +659,7 @@
 //            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
 //            layerNum=2;
             if (status1 == 0) {
-                map.setStyle('mapbox://styles/hfeng/civsurjxt001j2juk2uv843ml');//Racial_density_03-copy-copy-copy
+                map.setStyle('mapbox://styles/hfeng/civu82qv600192jmditi3akx8');//Racial_density_03-copy-copy-copy
                 layerNum = 2;
 
 //                setTimeout((function(){
@@ -689,7 +689,7 @@
                 price.style.display='none';
             }
             else if (status1 == 1&&status2==0) {
-                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip01-copy
 
                 status1 = 0;
                 layerNum=-1;
@@ -704,7 +704,7 @@
 //            layerNum=3;
             if (status2 == 0) {
 
-                map.setStyle('mapbox://styles/hfeng/civt1avbk00092jqvb3iayurn');//Price   //Census_tract_light_03
+                map.setStyle('mapbox://styles/hfeng/civu8y3se002j2klq90bqzfn0');//Price-copy-copy-copy-copy   //Census_tract_light_03
 
 //            setTimeout((function () {
 //                map.addSource('museum', {
