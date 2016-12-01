@@ -10,16 +10,13 @@
     <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
     <!--Bootstrap Core CSS-->
- <!--    <link rel="stylesheet" href="main.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!--Print-->
-    <link rel="stylesheet" href="http://rowanwins.github.io/leaflet-easyPrint/dist/easyPrint.css"/>
-    <script src="http://rowanwins.github.io/leaflet-easyPrint/dist/leaflet.easyPrint.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
 
     <style>
         body { margin:0; padding-top:70px; }
@@ -44,6 +41,7 @@
             font-family: Arial, sans-serif;
             overflow: auto;
             border-radius: 3px;
+            z-index:1;
         }
         #map {
             position:absolute;
@@ -58,21 +56,7 @@
             margin-top: 60px;
             width: 250px;
         }
-        /*#legend {*/
-            /*padding: 10px;*/
-            /*box-shadow: 0 1px 2px rgba(0,0,0,0.10);*/
-            /*line-height: 18px;*/
-            /*height: 200px;*/
-            /*margin-bottom: 40px;*/
-            /*width: 150px;*/
-        /*}*/
-        /*.legend-key {*/
-            /*display:inline-block;*/
-            /*border-radius: 20%;*/
-            /*width:10px;*/
-            /*height: 5px;*/
-            /*margin-right: 5px;*/
-        /*}*/
+
 
 
         .legend {
@@ -88,7 +72,7 @@
         }
 
         .legend h4 {
-            margin: 0 0 10px;
+            margin: 0 0 4px;
         }
 
         .legend div span {
@@ -99,23 +83,6 @@
             width: 10px;
         }
 
-
-
-        /*#menu {*/
-            /*position: absolute;*/
-            /*background: #fff;*/
-            /*padding: 5px;*/
-            /*//margin-top: 0px;*/
-           /*// margin-right: 10px;*/
-            /*font-family: 'Open Sans', sans-serif;*/
-
-        /*}*/
-        /*#leafletEasyPrint{*/
-
-            /*//padding:5px;*/
-            /*height:20px;*/
-
-        /*}*/
         #zoom{
             margin-top: 50px;
         }
@@ -139,34 +106,16 @@
         #menu input {
             font-size: 10px;
             color: #404040;
-            /*display: block;*/
-            /*margin: 0;*/
-            /*padding: 0;*/
-            /*padding: 10px;*/
-            /*text-decoration: none;*/
-            /*border-bottom: 1px solid rgba(0,0,0,0.25);*/
-            /*text-align: center;*/
             margin-top: 15px;
             opacity: 1;
         }
 
-        /*#menu a:last-child {*/
-            /*border: none;*/
-        /*}*/
-
-        /*#menu a:hover {*/
-            /*background-color: #f8f8f8;*/
-            /*color: #404040;*/
-        /*}*/
 
         #menu .active {
             background-color: #3887be;
             color: #3887be;
         }
 
-        /*#menu a.active:hover {*/
-            /*background: #3074a4;*/
-        /*}*/
 
         .btn.btn-primary{
             position: absolute;
@@ -202,7 +151,6 @@
 
     </style>
     <style id="style-1-cropbar-clipper">
-        /* Copyright 2014 Evernote Corporation. All rights reserved. */
     .en-markup-crop-options {
         top: 18px !important;
         left: 50% !important;
@@ -218,124 +166,116 @@
     </style>
 </head>
 
-
+<div id="content">
 <div id="map" class="mapboxgl-map">
     <div class="mapboxgl-canvas-container mapboxgl-interactive">
         <canvas class="mapboxgl-canvas" tabindex="0" width="2560" height="300" style="position: absolute; width: 1280px; height: 150px; cursor: default;">
 
         </canvas>
+        <div class="map-overlay" id="features"><h2>Hover over a dot!</h2><div id="pd"><p></p></div></div>
+        <div class="legend" id="racial" style='display: none;'>
+            <!--<div><span>% White</span></div>-->
+            <!--<div><span class="legend-key" style="background-color: rgb(255, 237, 160);"></span>-->
+            <!--<span><30</span></div>-->
+            <!--<div><span class="legend-key" style="background-color: rgb(254, 217, 118);"></span>-->
+            <!--<span>30-50</span></div>-->
+            <!--<div><span class="legend-key" style="background-color: rgb(254, 178, 76);"></span>-->
+            <!--<span>50-70</span></div>-->
+            <!--<div><span class="legend-key" style="background-color: rgb(253, 141, 60);"></span>-->
+            <!--<span>70-90</span></div>-->
+            <!--<div><span class="legend-key" style="background-color: #FC4E2A;"></span>-->
+            <!--<span>90+</span></div>-->
+            <!--<div><span>% African American</span></div>-->
+            <!--<div><span class="legend-key" style="background-color: #ADFF2F;"></span>-->
+            <!--<span><60</span></div>-->
+            <!--<div><span class="legend-key" style="background-color: #228B22;"></span>-->
+            <!--<span>60+</span></div>-->
+
+            <h4>Racial Density: Percent African</h4>
+            <h4>American by Census Tract</h4>
+            <div><span style='background-color: #ffffcc'></span>0-20%</div>
+            <div><span style='background-color: #c2e699'></span>20-40%</div>
+            <div><span style='background-color: #78c679'></span>40-60%</div>
+            <div><span style='background-color: #31a354'></span>60-80%</div>
+            <div><span style='background-color: #006837'></span>80-100%</div>
+
+        </div>
+
+
+        <div id='price' class='legend' style='display: none;'>
+            <h4>Median Price</h4>
+            <div><span style='background-color: #eff3ff'></span><50,000</div>
+            <div><span style='background-color: #bdd7e7'></span>50,000~100,000</div>
+            <div><span style='background-color: #6baed6'></span>100,000~150,000</div>
+            <div><span style='background-color: #3182bd'></span>150,000~200,000</div>
+            <div><span style='background-color: #08519c'></span>200,000~250,000</div>
+
+        </div>
+
+
+        <div id="tip" class="legend" ></div>
+
+
+
+
+        <!-- Navigation Bar-->
+        <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Mapping Injustice</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div ng-app="MyApp" ng-controller="MyCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="map" >Map</a>
+                        </li>
+                        <li>
+                            <a href="upload">Upload</a>
+                        </li>
+                        <!--<li>-->
+                        <!--<button type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>-->
+                        <!--</li>-->
+                    </ul>
+                    <!-- <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    </ul> -->
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+
+        <div id="demo" ng-app="MyApp" ng-controller="MyCtrl">
+
+        </div>
+    </div>
     </div>
     <div class="mapboxgl-control-container">
 
     </div>
 </div>
-<div class="map-overlay" id="features"><h2>Georgia State</h2><div id="pd"><p>Hover over a dot!</p></div></div>
-<div class="legend" id="racial" style='display: none;'>
-    <!--<div><span>% White</span></div>-->
-    <!--<div><span class="legend-key" style="background-color: rgb(255, 237, 160);"></span>-->
-    <!--<span><30</span></div>-->
-    <!--<div><span class="legend-key" style="background-color: rgb(254, 217, 118);"></span>-->
-    <!--<span>30-50</span></div>-->
-    <!--<div><span class="legend-key" style="background-color: rgb(254, 178, 76);"></span>-->
-    <!--<span>50-70</span></div>-->
-    <!--<div><span class="legend-key" style="background-color: rgb(253, 141, 60);"></span>-->
-    <!--<span>70-90</span></div>-->
-    <!--<div><span class="legend-key" style="background-color: #FC4E2A;"></span>-->
-    <!--<span>90+</span></div>-->
-    <!--<div><span>% African American</span></div>-->
-    <!--<div><span class="legend-key" style="background-color: #ADFF2F;"></span>-->
-    <!--<span><60</span></div>-->
-    <!--<div><span class="legend-key" style="background-color: #228B22;"></span>-->
-    <!--<span>60+</span></div>-->
-
-    <h4>Racial Desinty of Black</h4>
-    <div><span style='background-color: #ffffcc'></span>0-20%</div>
-    <div><span style='background-color: #c2e699'></span>20-40%</div>
-    <div><span style='background-color: #78c679'></span>40-60%</div>
-    <div><span style='background-color: #31a354'></span>60-80%</div>
-    <div><span style='background-color: #006837'></span>80-100%</div>
-
-</div>
-
-
-<div id='price' class='legend' style='display: none;'>
-    <h4>Median Price</h4>
-    <div><span style='background-color: #eff3ff'></span><50,000</div>
-    <div><span style='background-color: #bdd7e7'></span>50,000~100,000</div>
-    <div><span style='background-color: #6baed6'></span>100,000~150,000</div>
-    <div><span style='background-color: #3182bd'></span>150,000~200,000</div>
-    <div><span style='background-color: #08519c'></span>200,000~250,000</div>
-
-</div>
-
-
-<div id="tip" class="legend" ></div>
-
 <nav id='menu'>
 
 
     &nbsp;&nbsp;<input id='race_02' type='radio' name='rtoggle' value='race' >Racial&nbsp;&nbsp;
-    <!--<label for='race_02'>Property</label>-->
     <input id='property' type='radio' name='rtoggle' value='property' >Price
-    <!--<label for='property'>race</label>-->
-    <!--<input id='price' type='radio' name='rtoggle' value='price'>-->
-    <!--<label for='price'>price</label>-->
+
 
 </nav>
 <button id="reset" class="btn btn-primary" onclick="myReset()">Reset</button>
 
 <button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()" id="fresh">Refresh</button>
-<!--<button id="export" onclick="print()">export</button>-->
-<button id="export" class="btn btn-primary" onclick="myFunction()">export</button>
 
-
-<!-- Navigation Bar-->
-<nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Mapping Injustice</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div ng-app="MyApp" ng-controller="MyCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="map" >Map</a>
-                </li>
-                <li>
-                    <a href="upload">Upload</a>
-                </li>
-                <!--<li>-->
-                    <!--<button type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>-->
-                <!--</li>-->
-            </ul>
-            <!-- <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-            </ul> -->
-
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-<!--<div class="leaflet-control-zoom leaflet-bar leaflet-control" id="zoom">-->
-    <!--<a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a>-->
-    <!--<a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a>-->
-<!--</div>-->
-<!--<div class="leaflet-control-easyPrint leaflet-bar leaflet-control">-->
-    <!--<a class="leaflet-control-easyPrint-button leaflet-bar-part" id="leafletEasyPrint" title="My awesome print button"></a>-->
-<!--</div>-->
-
-<div id="demo" ng-app="MyApp" ng-controller="MyCtrl">
-
-</div>
+<button id="export" class="btn btn-primary" onclick="takeScreenShot()">Export</button>
 
 
 
@@ -375,56 +315,7 @@
 
 
 <!--Create Legend for three layers-->
-//        if(layerNum==1){
-//            // define layer names
-//            layers1 = ['less_than_1500', '1500_to_3000', '3000_to_5000', '5000_to_7000', '7000_to_9000', '9000_to_20000', 'more_than_20000'];
-//
-//            // create legend
-//            layers1.forEach(function(layer) {
-//                var color = map.getPaintProperty(layer, 'fill-color');
-//                var item = document.createElement('div');
-//                var key = document.createElement('span');
-//                key.className = 'legend-key';
-//                key.style.backgroundColor = color;
-//
-////            var value = document.createElement('span');
-////            value.innerHTML = layer;
-////            item.appendChild(key);
-////            item.appendChild(value);
-////            legend.appendChild(item);
-//            });
-//
-//        }
-//        else if(layerNum==2){
-//            // define layer names
-//            layers2 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100','100_to_1060','1060+'];
-//
-//            // create legend
-//            layers2.forEach(function(layer) {
-//                var color = map.getPaintProperty(layer, 'fill-color');
-//                var item = document.createElement('div');
-//                var key = document.createElement('span');
-//                key.className = 'legend-key';
-//                key.style.backgroundColor = color;
-//
-//            });
-//
-//        }
-//        else if(layerNum==3){
-//            // define layer names
-//            layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
-//
-//            // create legend
-//            layers3.forEach(function(layer) {
-//                var color = map.getPaintProperty(layer, 'fill-color');
-//                var item = document.createElement('div');
-//                var key = document.createElement('span');
-//                key.className = 'legend-key';
-//                key.style.backgroundColor = color;
-//
-//            });
-//
-//        }
+
         if(test!=null){
             map.addSource("places", {
                 "type": "geojson",
@@ -443,11 +334,6 @@
 
             });
         }
-
-
-
-
-
     });
 
     var popup = new mapboxgl.Popup({
@@ -465,19 +351,11 @@
             });
             var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
-//            if (states.length > 0) {
-//                //document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.LATITUDE+", "+ states[0].properties.LONGITUDE + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
-//                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Address + "</strong></h3><p><strong><em>" + states[0].properties.HD01_VD02 + "</strong> white people</em></p>";
-//                //document.getElementById('pd').innerHTML = Json.stringify(features,null,2);
-//            } else {
-//                document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
-//            }
-
             if(states[0].properties.White>=0){
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
                 popup.setLngLat(addr)
-                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=addr;
                 document.getElementById('pro').innerHTML=pro;
@@ -505,19 +383,15 @@
 
 
             if(states[0].properties.Racial_den>=0)
-                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % Black people</em></p>";
-//                else if(states[0].properties.Racial_den<2000){
-//                    states[0].properties.Racial_den=states[0].properties.Racial_den-1000;
-//                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
-//                }
-//                  document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den-1000 + "</strong> % African American</em></p>";
+                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
+
 
 
             else if(states[0].properties.White>=0){
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
                 popup.setLngLat(addr)
-                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=addr;
                 document.getElementById('pro').innerHTML=pro;
@@ -558,7 +432,7 @@
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
                 popup.setLngLat(addr)
-                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=addr;
                 document.getElementById('pro').innerHTML=pro;
@@ -631,18 +505,12 @@
             var pro = parseInt(100-features[0].properties.White);
             var addr = [feature.properties.longitude,feature.properties.latitude];
             popup.setLngLat(addr)
-                    .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% Black People): </strong><p id="pro"></p>')
+                    .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                     .addTo(map);
             document.getElementById('address').innerHTML=addr;
             document.getElementById('pro').innerHTML=pro;
         }
 
-//        if (features.length > 0) {
-//            document.getElementById('pd').innerHTML = "<h3><strong>" + features[0].properties.White + "</strong></h3>";
-//            //map.setFilter('layers3',['==','fill-color','#1E90FF']);
-//        } else {
-//            document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
-//        }
 
     });
 
@@ -656,35 +524,13 @@
         var layerId = layer.target.id;
         //alert(layerId);
         if(layerId=='race_02'){
-//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
-//            layerNum=2;
+
             if (status1 == 0) {
-                map.setStyle('mapbox://styles/hfeng/civu82qv600192jmditi3akx8');//Racial_density_03-copy-copy-copy
+                map.setStyle('mapbox://styles/hfeng/civu82qv600192jmditi3akx8');//Racial_density_03-copy-copy-copy-copy
                 layerNum = 2;
 
-//                setTimeout((function(){
-//                    map.addSource('museum', {
-//                        type: 'vector',
-//                        url: 'mapbox://hfeng.9upajrp6'
-//                    });
-//                    map.addLayer({
-//                        'id': 'museums',
-//                        'type': 'circle',
-//                        'source': 'museum',
-//                        'layout': {
-//                            'visibility': 'visible'
-//                        },
-//                        'paint': {
-//                            'circle-radius': 5,
-//                            'circle-color': 'rgba(55,148,179,1)'
-//                        },
-//                        'source-layer': 'Marker-3kpsk9'
-//                    });
-//                }),2000);
                 status1 = 1;
                 status2 = 0;
-//            this.className = '';
-                //link2.className = "active"
                 racial.style.display='block';
                 price.style.display='none';
             }
@@ -700,44 +546,19 @@
 
         }
         else if(layerId=='property'){
-//            map.setStyle('mapbox://styles/hfeng/ciuyp84hh00ht2js5moiveq4u');
-//            layerNum=3;
+
             if (status2 == 0) {
 
-                map.setStyle('mapbox://styles/hfeng/civu8y3se002j2klq90bqzfn0');//Price-copy-copy-copy-copy   //Census_tract_light_03
-
-//            setTimeout((function () {
-//                map.addSource('museum', {
-//                    type: 'vector',
-//                    url: 'mapbox://hfeng.9upajrp6'
-//                });
-//                map.addLayer({
-//                    'id': 'museums',
-//                    'type': 'circle',
-//                    'source': 'museum',
-//                    'layout': {
-//                        'visibility': 'visible'
-//                    },
-//                    'paint': {
-//                        'circle-radius': 5,
-//                        'circle-color': 'rgba(55,148,179,1)'
-//                    },
-//                    'source-layer': 'Marker-3kpsk9'
-//                });
-//            }), 2000);
+                map.setStyle('mapbox://styles/hfeng/ciw5x7qhv000e2kl3hrbtclpg');//Price-copy-copy-copy-copy-copy   //Census_tract_light_03
 
                 status2 = 1;
                 status1 = 0;
-//            this.className = '';
-//            link1.className = 'active';
                 layerNum = 3;
                 racial.style.display='none';
                 price.style.display='block';
             }
             else if (status2 == 1&&status1==0) {
                 map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
-//            this.className = 'active';
-//            link1.className = 'active';
                 status2 = 0;
                 layerNum=-1;
                 price.style.display='none';
@@ -746,141 +567,12 @@
             }
 
         }
-//        else{
-//            map.setStyle('mapbox://styles/hfeng/civoo03fc002r2joxfxspp2ts');
-//            layerNum=1;
-//        }
 
     }
     for(var i=0;i<inputs.length;i++){
         inputs[i].onclick = switchLayer;
     }
 
-
-
-//    var toggleableLayerIds = [ 'Racial','Prices' ];
-//
-//    var status1 = 0,status2 = 0;
-//
-//    //for (var i = 0; i < toggleableLayerIds.length; i++) {
-//    var id1 = toggleableLayerIds[0];
-//    var id2 = toggleableLayerIds[1];
-//
-//    var link1 = document.getElementById('race_02');
-////    link1.href = '#';
-////    link1.className = 'active';
-////    link1.textContent = id1;
-////    link1.type='radio';
-////    link1.name='Racial';
-////    link1.className='active';
-//
-//    var link2 = document.getElementById('property');
-////    link2.href = '#';
-////    link2.className = 'active';
-////    link2.textContent = id2;
-////    link2.type='radio';
-////    link2.name='Price';
-////    link2.className='';
-//
-//    link1.onclick = function (e) {
-//        //var clickedLayer = this.textContent;
-//        e.preventDefault();
-//        e.stopPropagation();
-//
-//        if (status1 == 0) {
-//            map.setStyle('mapbox://styles/hfeng/civsurjxt001j2juk2uv843ml');//Racial_density_03-copy-copy-copy
-//            layerNum = 2;
-//
-////                setTimeout((function(){
-////                    map.addSource('museum', {
-////                        type: 'vector',
-////                        url: 'mapbox://hfeng.9upajrp6'
-////                    });
-////                    map.addLayer({
-////                        'id': 'museums',
-////                        'type': 'circle',
-////                        'source': 'museum',
-////                        'layout': {
-////                            'visibility': 'visible'
-////                        },
-////                        'paint': {
-////                            'circle-radius': 5,
-////                            'circle-color': 'rgba(55,148,179,1)'
-////                        },
-////                        'source-layer': 'Marker-3kpsk9'
-////                    });
-////                }),2000);
-//            status1 = 1;
-//            status2 = 0;
-////            this.className = '';
-//            link2.className = "active"
-//            racial.style.display='block';
-//            price.style.display='none';
-//        }
-//        else if (status1 == 1&&status2==0) {
-//            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
-////            this.className = 'active';
-////            link2.className = 'active';
-//            status1 = 0;
-//            layerNum=-1;
-//            racial.style.display='none';
-//            tip.style.display='none';
-//
-//        }
-//    }
-//
-//    link2.onclick = function (e) {
-//        //var clickedLayer = this.textContent;
-//        e.preventDefault();
-//        e.stopPropagation();
-//
-//        if (status2 == 0) {
-//
-//            map.setStyle('mapbox://styles/hfeng/civt1avbk00092jqvb3iayurn');//Price   //Census_tract_light_03
-//
-////            setTimeout((function () {
-////                map.addSource('museum', {
-////                    type: 'vector',
-////                    url: 'mapbox://hfeng.9upajrp6'
-////                });
-////                map.addLayer({
-////                    'id': 'museums',
-////                    'type': 'circle',
-////                    'source': 'museum',
-////                    'layout': {
-////                        'visibility': 'visible'
-////                    },
-////                    'paint': {
-////                        'circle-radius': 5,
-////                        'circle-color': 'rgba(55,148,179,1)'
-////                    },
-////                    'source-layer': 'Marker-3kpsk9'
-////                });
-////            }), 2000);
-//
-//            status2 = 1;
-//            status1 = 0;
-////            this.className = '';
-////            link1.className = 'active';
-//            layerNum = 3;
-//            racial.style.display='none';
-//            price.style.display='block';
-//        }
-//        else if (status2 == 1&&status1==0) {
-//            map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
-////            this.className = 'active';
-////            link1.className = 'active';
-//            status2 = 0;
-//            layerNum=-1;
-//            price.style.display='none';
-//            tip.style.display='none';
-//
-//        }
-//    };
-
-//    var layers = document.getElementById('menu');
-//    layers.appendChild(link1);
-//    layers.appendChild(link2);
 
 
 
@@ -922,11 +614,6 @@
 
     });
 
-    function myFunction(){
-//        var canvas = document.getElementById('map');
-//        var dataUrl = canvas.toDataURL();
-        window.open(map.getCanvas().toDataURL(),"toDataURL() image","width=1200,height=2000");
-    }
 
     function myReset(){
         status1=0;
@@ -939,7 +626,16 @@
         tip.style.display='none';
     }
 
-
+    window.takeScreenShot = function() {
+        html2canvas(document.getElementById("map"), {
+            onrendered: function (canvas) {
+                <!-- document.body.appendChild(canvas); -->
+                window.open(canvas.toDataURL());
+            },
+            width:1400,
+            height:1000
+        });
+    }
 
 
 
