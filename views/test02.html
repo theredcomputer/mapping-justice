@@ -204,11 +204,11 @@
 
         <div id='price' class='legend' style='display: none;'>
             <h4>Median Price</h4>
-            <div><span style='background-color: #eff3ff'></span><50,000</div>
-            <div><span style='background-color: #bdd7e7'></span>50,000~100,000</div>
-            <div><span style='background-color: #6baed6'></span>100,000~150,000</div>
-            <div><span style='background-color: #3182bd'></span>150,000~200,000</div>
-            <div><span style='background-color: #08519c'></span>200,000~250,000</div>
+            <div><span style='background-color: #eff3ff'></span><200,000</div>
+            <div><span style='background-color: #bdd7e7'></span>200,000~400,000</div>
+            <div><span style='background-color: #6baed6'></span>400,000~600,000</div>
+            <div><span style='background-color: #3182bd'></span>600,000~800,000</div>
+            <div><span style='background-color: #08519c'></span>800,000~1000,000</div>
 
         </div>
 
@@ -357,7 +357,7 @@
                 popup.setLngLat(addr)
                         .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .addTo(map);
-                document.getElementById('address').innerHTML=addr;
+                document.getElementById('address').innerHTML=states[0].properties.Address;
                 document.getElementById('pro').innerHTML=pro;
             }
             else if(points.length>0){
@@ -382,8 +382,8 @@
             var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
 
-            if(states[0].properties.Racial_den>=0)
-                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Racial_d_1 + "</strong></h3><p><strong><em>" + states[0].properties.Racial_den + "</strong> % African American</em></p>";
+            if(states[0].properties.Density_DE>=0)
+                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Density_GE + "</strong></h3><p><strong><em>" + states[0].properties.Density_DE + "</strong> % African American</em></p>";
 
 
 
@@ -393,7 +393,7 @@
                 popup.setLngLat(addr)
                         .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .addTo(map);
-                document.getElementById('address').innerHTML=addr;
+                document.getElementById('address').innerHTML=states[0].properties.Address;
                 document.getElementById('pro').innerHTML=pro;
             }
             else if(points.length>0){
@@ -424,8 +424,8 @@
             // Change the cursor style as a UI indicator.
             //map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
 
-            if (states[0].properties.Price_medi > 0) {
-                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Price_me_1 + "</strong></h3><p><strong><em>" + "$"+states[0].properties.Price_medi + "</strong></em></p>";
+            if (states[0].properties.Price_PRIC > 0) {
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Price_GEOG + "</strong></h3><p><strong><em>" + "$"+states[0].properties.Price_PRIC + "</strong></em></p>";
                 //map.setFilter('layers3',['==','fill-color','#1E90FF']);
             }
             else if(states[0].properties.White>=0){
@@ -434,7 +434,7 @@
                 popup.setLngLat(addr)
                         .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .addTo(map);
-                document.getElementById('address').innerHTML=addr;
+                document.getElementById('address').innerHTML=states[0].properties.Address;
                 document.getElementById('pro').innerHTML=pro;
             }
             else if(points.length>0){
@@ -526,7 +526,7 @@
         if(layerId=='race_02'){
 
             if (status1 == 0) {
-                map.setStyle('mapbox://styles/hfeng/civu82qv600192jmditi3akx8');//Racial_density_03-copy-copy-copy-copy
+                map.setStyle('mapbox://styles/hfeng/ciw8rurq2001u2qlh5chgqb4y');//Racial_density_03-copy-copy-copy-copy-copy
                 layerNum = 2;
 
                 status1 = 1;
@@ -549,7 +549,7 @@
 
             if (status2 == 0) {
 
-                map.setStyle('mapbox://styles/hfeng/ciw5x7qhv000e2kl3hrbtclpg');//Price-copy-copy-copy-copy-copy   //Census_tract_light_03
+                map.setStyle('mapbox://styles/hfeng/ciw8sdcoz00262pw13u0bvsvt');//Price-copy-copy-copy-copy-copy-copy   //Census_tract_light_03
 
                 status2 = 1;
                 status1 = 0;
@@ -558,7 +558,7 @@
                 price.style.display='block';
             }
             else if (status2 == 1&&status1==0) {
-                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip-copy
+                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip01-copy
                 status2 = 0;
                 layerNum=-1;
                 price.style.display='none';
