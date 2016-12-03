@@ -166,103 +166,83 @@
     </style>
 </head>
 
-<div id="content">
+
 <div id="map" class="mapboxgl-map">
     <div class="mapboxgl-canvas-container mapboxgl-interactive">
         <canvas class="mapboxgl-canvas" tabindex="0" width="2560" height="300" style="position: absolute; width: 1280px; height: 150px; cursor: default;">
 
         </canvas>
-        <div class="map-overlay" id="features"><h2>Hover over a dot!</h2><div id="pd"><p></p></div></div>
-        <div class="legend" id="racial" style='display: none;'>
-            <!--<div><span>% White</span></div>-->
-            <!--<div><span class="legend-key" style="background-color: rgb(255, 237, 160);"></span>-->
-            <!--<span><30</span></div>-->
-            <!--<div><span class="legend-key" style="background-color: rgb(254, 217, 118);"></span>-->
-            <!--<span>30-50</span></div>-->
-            <!--<div><span class="legend-key" style="background-color: rgb(254, 178, 76);"></span>-->
-            <!--<span>50-70</span></div>-->
-            <!--<div><span class="legend-key" style="background-color: rgb(253, 141, 60);"></span>-->
-            <!--<span>70-90</span></div>-->
-            <!--<div><span class="legend-key" style="background-color: #FC4E2A;"></span>-->
-            <!--<span>90+</span></div>-->
-            <!--<div><span>% African American</span></div>-->
-            <!--<div><span class="legend-key" style="background-color: #ADFF2F;"></span>-->
-            <!--<span><60</span></div>-->
-            <!--<div><span class="legend-key" style="background-color: #228B22;"></span>-->
-            <!--<span>60+</span></div>-->
 
-            <h4>Racial Density: Percent African</h4>
-            <h4>American by Census Tract</h4>
-            <div><span style='background-color: #ffffcc'></span>0-20%</div>
-            <div><span style='background-color: #c2e699'></span>20-40%</div>
-            <div><span style='background-color: #78c679'></span>40-60%</div>
-            <div><span style='background-color: #31a354'></span>60-80%</div>
-            <div><span style='background-color: #006837'></span>80-100%</div>
-
-        </div>
+    </div>
+    <div class="map-overlay" id="features"><h2>Hover over a dot!</h2><div id="pd"><p></p></div></div>
+    <div class="legend" id="racial" style='display: none;'>
 
 
-        <div id='price' class='legend' style='display: none;'>
-            <h4>Median Price</h4>
-            <div><span style='background-color: #eff3ff'></span><200,000</div>
-            <div><span style='background-color: #bdd7e7'></span>200,000~400,000</div>
-            <div><span style='background-color: #6baed6'></span>400,000~600,000</div>
-            <div><span style='background-color: #3182bd'></span>600,000~800,000</div>
-            <div><span style='background-color: #08519c'></span>800,000~1000,000</div>
+        <h4>Racial Density: Percent African</h4>
+        <h4>American by Census Tract</h4>
+        <div><span style='background-color: #ffffcc'></span>0-20%</div>
+        <div><span style='background-color: #c2e699'></span>20-40%</div>
+        <div><span style='background-color: #78c679'></span>40-60%</div>
+        <div><span style='background-color: #31a354'></span>60-80%</div>
+        <div><span style='background-color: #006837'></span>80-100%</div>
 
-        </div>
-
-
-        <div id="tip" class="legend" ></div>
+    </div>
 
 
+    <div id='price' class='legend' style='display: none;'>
+        <h4>Median Price</h4>
+        <div><span style='background-color: #eff3ff'></span><200,000</div>
+        <div><span style='background-color: #bdd7e7'></span>200,000~400,000</div>
+        <div><span style='background-color: #6baed6'></span>400,000~600,000</div>
+        <div><span style='background-color: #3182bd'></span>600,000~800,000</div>
+        <div><span style='background-color: #08519c'></span>800,000~1000,000</div>
+
+    </div>
 
 
-        <!-- Navigation Bar-->
-        <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Mapping Injustice</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div ng-app="MyApp" ng-controller="MyCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="map" >Map</a>
-                        </li>
-                        <li>
-                            <a href="upload">Upload</a>
-                        </li>
-                        <!--<li>-->
-                        <!--<button type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>-->
-                        <!--</li>-->
-                    </ul>
-                    <!-- <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-                    </ul> -->
+    <div id="tip" class="legend" ></div>
 
-                </div>
-                <!-- /.navbar-collapse -->
+    <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Mapping Injustice</a>
             </div>
-            <!-- /.container -->
-        </nav>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="map" >Map</a>
+                    </li>
+                    <li>
+                        <a href="upload">Upload</a>
+                    </li>
+                    <!--<li>-->
+                    <!--<button type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>-->
+                    <!--</li>-->
+                </ul>
+                <!-- <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                </ul> -->
 
-        <div id="demo" ng-app="MyApp" ng-controller="MyCtrl">
-
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
-    </div>
-    <div class="mapboxgl-control-container">
+        <!-- /.container -->
+    </nav>
 
-    </div>
+
 </div>
+
+<!-- Navigation Bar-->
+
+
 <nav id='menu'>
 
 
