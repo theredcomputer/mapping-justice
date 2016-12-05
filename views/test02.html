@@ -254,9 +254,9 @@
 </nav>
 <button id="reset" class="btn btn-primary" onclick="myReset()">Reset</button>
 
-<button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()" id="fresh">Refresh</button>
+<button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()" id="fresh">Reload Data</button>
 
-<button id="export" class="btn btn-primary" onclick="takeScreenShot()">Export</button>
+<button id="export" class="btn btn-primary" onclick="takeScreenShot()">Export View</button>
 
 
 
@@ -336,10 +336,11 @@
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
                 popup.setLngLat(addr)
-                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
+                       // .setHTML('<br><strong>Property Address: </strong><p id="address"></p><strong>Property (% African American): </strong><p id="pro"></p>')
+                        .setHTML('<br><strong>Property Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
-                document.getElementById('pro').innerHTML=pro;
+                //document.getElementById('pro').innerHTML=pro;
             }
             else if(points.length>0){
                 var point = points[0];
@@ -348,7 +349,7 @@
                 var lo = point.geometry.coordinates[0];
                 var la = point.geometry.coordinates[1];
                 popup.setLngLat(point.geometry.coordinates)
-                        .setHTML('<br><strong>Address: </strong><p id="address"></p>')
+                        .setHTML('<br><strong>>Property Address: </strong><p id="address"></p>')
                         .addTo(map)
                 document.getElementById('address').innerHTML=[lo,la];
             }
@@ -364,7 +365,7 @@
 
 
             if(states[0].properties.Density_DE>=0)
-                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Density_GE + "</strong></h3><p><strong><em>" + states[0].properties.Density_DE + "</strong> % African American</em></p>";
+                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Density_GE + "</strong></h3><p><strong><em>" + states[0].properties.Density_DE + "%</strong> African American</em></p>";
 
 
 
@@ -372,10 +373,11 @@
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
                 popup.setLngLat(addr)
-                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
+                        // .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
-                document.getElementById('pro').innerHTML=pro;
+                //document.getElementById('pro').innerHTML=pro;
             }
             else if(points.length>0){
                 var point = points[0];
@@ -406,7 +408,7 @@
             //map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
 
             if (states[0].properties.Price_PRIC > 0) {
-                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Price_GEOG + "</strong></h3><p><strong><em>" + "$"+states[0].properties.Price_PRIC + "</strong></em></p>";
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Price_GEOG + "</strong></h3><p><strong><em>" + "Median Home Price: $"+states[0].properties.Price_PRIC + "</strong></em></p>";
                 //map.setFilter('layers3',['==','fill-color','#1E90FF']);
             }
             else if(states[0].properties.White>=0){
