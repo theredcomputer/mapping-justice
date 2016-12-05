@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>Mapping Justice</title>
+    <title>Mapping Injustice</title>
     <!--MapboxGL-->
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
@@ -191,11 +191,11 @@
 
     <div id='price' class='legend' style='display: none;'>
         <h4>Median Price</h4>
-        <div><span style='background-color: #eff3ff'></span><200,000</div>
-        <div><span style='background-color: #bdd7e7'></span>200,000~400,000</div>
-        <div><span style='background-color: #6baed6'></span>400,000~600,000</div>
-        <div><span style='background-color: #3182bd'></span>600,000~800,000</div>
-        <div><span style='background-color: #08519c'></span>800,000~1000,000</div>
+        <div><span style='background-color: #eff3ff'></span><100k</div>
+        <div><span style='background-color: #bdd7e7'></span>100k~200k</div>
+        <div><span style='background-color: #6baed6'></span>200k~300k</div>
+        <div><span style='background-color: #3182bd'></span>300k~500k</div>
+        <div><span style='background-color: #08519c'></span>>500k</div>
 
     </div>
 
@@ -212,7 +212,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Mapping Justice</a>
+                <a class="navbar-brand" href="#">Mapping Injustice</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -529,7 +529,7 @@
 
             if (status2 == 0) {
 
-                map.setStyle('mapbox://styles/hfeng/ciw8sdcoz00262pw13u0bvsvt');//Price-copy-copy-copy-copy-copy-copy   //Census_tract_light_03
+                map.setStyle('mapbox://styles/hfeng/ciwbm2lih00342qmed4b3rew7');//Price-copy-copy-copy-copy-copy-copy-copy   //Census_tract_light_03
 
                 status2 = 1;
                 status1 = 0;
