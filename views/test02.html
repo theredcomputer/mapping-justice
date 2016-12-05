@@ -415,10 +415,11 @@
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
                 popup.setLngLat(addr)
-                        .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
+                        // .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
+                        .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
-                document.getElementById('pro').innerHTML=pro;
+                //document.getElementById('pro').innerHTML=pro;
             }
             else if(points.length>0){
                 var point = points[0];
@@ -488,10 +489,11 @@
             var pro = parseInt(100-features[0].properties.White);
             var addr = [feature.properties.longitude,feature.properties.latitude];
             popup.setLngLat(addr)
-                    .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
+                    //.setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
+                    .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                     .addTo(map);
             document.getElementById('address').innerHTML=addr;
-            document.getElementById('pro').innerHTML=pro;
+            //document.getElementById('pro').innerHTML=pro;
         }
 
 
