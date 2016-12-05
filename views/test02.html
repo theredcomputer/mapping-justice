@@ -2,21 +2,24 @@
 <head>
     <meta charset="utf-8">
     <title>Mapping Justice</title>
+    
     <!--MapboxGL-->
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
+    
     <!--MapboxJS-->
     <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+    
     <!--Bootstrap Core CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <!--html2canvas-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
 
     <style>
         body { margin:0; padding-top:70px; }
@@ -56,9 +59,6 @@
             margin-top: 60px;
             width: 250px;
         }
-
-
-
         .legend {
             background-color: #fff;
             border-radius: 3px;
@@ -70,11 +70,9 @@
             right: 10px;
             z-index: 1;
         }
-
         .legend h4 {
             margin: 0 0 4px;
         }
-
         .legend div span {
             border-radius: 50%;
             display: inline-block;
@@ -82,12 +80,9 @@
             margin-right: 5px;
             width: 10px;
         }
-
         #zoom{
             margin-top: 50px;
         }
-
-
 
         #menu {
             background: #fff;
@@ -102,21 +97,16 @@
             font-family: 'Open Sans', sans-serif;
             opacity: 0.8;
         }
-
         #menu input {
             font-size: 10px;
             color: #404040;
             margin-top: 15px;
             opacity: 1;
         }
-
-
         #menu .active {
             background-color: #3887be;
             color: #3887be;
         }
-
-
         .btn.btn-primary{
             position: absolute;
             z-index:1;
@@ -147,9 +137,8 @@
             left: 18px;
             width: 120px;
         }
-
-
     </style>
+
     <style id="style-1-cropbar-clipper">
     .en-markup-crop-options {
         top: 18px !important;
@@ -170,42 +159,57 @@
 <div id="map" class="mapboxgl-map">
     <div class="mapboxgl-canvas-container mapboxgl-interactive">
         <canvas class="mapboxgl-canvas" tabindex="0" width="2560" height="300" style="position: absolute; width: 1280px; height: 150px; cursor: default;">
-
         </canvas>
-
     </div>
-    <div class="map-overlay" id="features"><h2>Hover over a dot!</h2><div id="pd"><p></p></div></div>
+    <div class="map-overlay" id="features">
+        <h2>Hover over a dot!</h2>
+        <div id="pd">
+            <p></p>
+        </div>
+    </div>
     <div class="legend" id="racial" style='display: none;'>
-
-
         <h4>Racial Density:                         </h4>
         <h4>Percent African-American by Census Tract</h4>
-        <div><span style='background-color: #ffffcc'></span>0-20%</div>
-        <div><span style='background-color: #c2e699'></span>20-40%</div>
-        <div><span style='background-color: #78c679'></span>40-60%</div>
-        <div><span style='background-color: #31a354'></span>60-80%</div>
-        <div><span style='background-color: #006837'></span>80-100%</div>
-
+        <div>
+            <span style='background-color: #ffffcc'></span>0-20%
+        </div>
+        <div>
+            <span style='background-color: #c2e699'></span>20-40%
+        </div>
+        <div>
+            <span style='background-color: #78c679'></span>40-60%
+        </div>
+        <div>
+            <span style='background-color: #31a354'></span>60-80%
+        </div>
+        <div>
+            <span style='background-color: #006837'></span>80-100%
+        </div>
     </div>
-
-
     <div id='price' class='legend' style='display: none;'>
         <h4>Median Home Price:</h4>
         <h4>Dollar Value by County Subdivision</h4>
-        <div><span style='background-color: #eff3ff'></span><$100,000</div>
-        <div><span style='background-color: #bdd7e7'></span>$100,000-200,000</div>
-        <div><span style='background-color: #6baed6'></span>$200,000-300,000</div>
-        <div><span style='background-color: #3182bd'></span>$300,000-500,000</div>
-        <div><span style='background-color: #08519c'></span>>$500,000</div>
-
+        <div>
+            <span style='background-color: #eff3ff'></span><$100,000
+        </div>
+        <div>
+            <span style='background-color: #bdd7e7'></span>$100,000-200,000
+        </div>
+        <div>
+            <span style='background-color: #6baed6'></span>$200,000-300,000
+        </div>
+        <div>
+            <span style='background-color: #3182bd'></span>$300,000-500,000
+        </div>
+        <div>
+            <span style='background-color: #08519c'></span>>$500,000
+        </div>
     </div>
-
-
     <div id="tip" class="legend" ></div>
-
     <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
+           
+        <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -215,6 +219,7 @@
                 </button>
                 <a class="navbar-brand" href="#">Mapping Justice</a>
             </div>
+    
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -224,42 +229,22 @@
                     <li>
                         <a href="upload">Upload</a>
                     </li>
-                    <!--<li>-->
-                    <!--<button type="button" class="btn btn-primary" ng-click="fetch()">Refresh</button>-->
-                    <!--</li>-->
                 </ul>
-                <!-- <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-                </ul> -->
-
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
-
-
 </div>
 
 <!-- Navigation Bar-->
-
-
 <nav id='menu'>
-
-
-    &nbsp;&nbsp;<input id='race_02' type='radio' name='rtoggle' value='race' >Racial&nbsp;&nbsp;
-    <input id='property' type='radio' name='rtoggle' value='property' >Price
-
-
+    &nbsp;&nbsp;<input id='race_02' type='radio' name='rtoggle' value='race' >Racial&nbsp;&nbsp;<input id='property' type='radio' name='rtoggle' value='property' >Price
 </nav>
+    
 <button id="reset" class="btn btn-primary" onclick="myReset()">Reset</button>
-
 <button ng-app="MyApp" ng-controller="MyCtrl" type="button" class="btn btn-primary" ng-click="fetch()" id="fresh">Reload Data</button>
-
 <button id="export" class="btn btn-primary" onclick="takeScreenShot()">Export View</button>
-
-
-
 
 <script>
     var test;
@@ -270,19 +255,17 @@
     var tip = document.getElementById('tip');
 
     // define access token
-
     mapboxgl.accessToken = 'pk.eyJ1IjoiaGZlbmciLCJhIjoiY2lzdndodTI0MDJvYjJ5cGd5ZnI2ZmJnNyJ9.D4VXSWW1-uWiSiB4bYRXOw';
     var layerNum=-1;
+    
     //create map
     var map = new mapboxgl.Map({
         container: 'map', // container id
-
         style:'mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2',//Tooltip01-copy
         center: [-84.393753,33.774326],
         zoom:10,
         preserveDrawingBuffer:true
     });
-
 
     // wait for map to load before adjusting it
     map.on('load', function() {
@@ -290,14 +273,8 @@
         // make a pointer cursor
         map.getCanvas().style.cursor = 'default';
 
-        // set map bounds to the continental US
-        //map.fitBounds([[-133.2421875, 16.972741], [-47.63671875, 52.696361]]);
-        //map.fitBounds([[20,-80],[50,-85]]);
-
-
-<!--Create Legend for three layers-->
-
-        if(test!=null){
+        // Create legend for three layers
+        if(test != null){
             map.addSource("places", {
                 "type": "geojson",
                 "data": test
@@ -312,7 +289,6 @@
                     "icon-image": "{icon}-15",
                     "icon-allow-overlap": true
                 }
-
             });
         }
     });
@@ -325,61 +301,61 @@
     // change info window on hover
     map.on('mousemove', function (e) {
         var states;
-        if(layerNum==-1){
+
+        if(layerNum==-1) {
             console.log(layerNum);
             states = map.queryRenderedFeatures(e.point, {
                 layers: layers1
             });
-            var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
-            if(states[0].properties.White>=0){
+            var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
+            
+            if(states[0].properties.White>=0) {
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
+            
                 popup.setLngLat(addr)
                        // .setHTML('<br><strong>Property Address: </strong><p id="address"></p><strong>Property (% African American): </strong><p id="pro"></p>')
                         .setHTML('<br><strong>Property Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
                 //document.getElementById('pro').innerHTML=pro;
-            }
-            else if(points.length>0){
+
+            } else if(points.length>0) {
                 var point = points[0];
-                //var lalo = [point.properties.longitude,point.properties.latitude];
                 console.log(point.geometry.coordinates);
                 var lo = point.geometry.coordinates[0];
                 var la = point.geometry.coordinates[1];
+            
                 popup.setLngLat(point.geometry.coordinates)
                         .setHTML('<br><strong>>Property Address: </strong><p id="address"></p>')
                         .addTo(map)
                 document.getElementById('address').innerHTML=[lo,la];
             }
 
-
-        }
-        else if(layerNum==2){
+        } else if(layerNum==2) {
             console.log(layerNum);
             states = map.queryRenderedFeatures(e.point, {
                 layers: layers2
             });
+
             var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
+            if(states[0].properties.Density_DE>=0) {
+                document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Density_GE + "</strong></h3><p><strong><em>" + states[0].properties.Density_DE + "%</strong> African American</em></p>";
 
-            if(states[0].properties.Density_DE>=0)
-                    document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Density_GE + "</strong></h3><p><strong><em>" + states[0].properties.Density_DE + "%</strong> African American</em></p>";
-
-
-
-            else if(states[0].properties.White>=0){
+            } else if(states[0].properties.White>=0) {
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
+
                 popup.setLngLat(addr)
                         // .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
                 //document.getElementById('pro').innerHTML=pro;
-            }
-            else if(points.length>0){
+
+            } else if(points.length>0) {
                 var point = points[0];
                 //var lalo = [point.properties.longitude,point.properties.latitude];
                 console.log(point.geometry.coordinates);
@@ -389,19 +365,17 @@
                         .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map)
                 document.getElementById('address').innerHTML=[lo,la];
-            }
-
-
-            else {
+            
+            } else {
                 document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
             }
         }
-        else if(layerNum==3){
-            //layers3 = ['less_than_30','30_to_50', '50_to_70', '70_to_90', '90_to_100'];
+        else if(layerNum==3) {
             console.log(layerNum);
             states = map.queryRenderedFeatures(e.point, {
                 layers: layers3
             });
+            
             var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
             // Change the cursor style as a UI indicator.
@@ -409,85 +383,72 @@
 
             if (states[0].properties.Price_PRIC > 0) {
                 document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Price_GEOG + "</strong></h3><p><strong><em>" + "Median Home Price: $"+states[0].properties.Price_PRIC + "</strong></em></p>";
-                //map.setFilter('layers3',['==','fill-color','#1E90FF']);
-            }
-            else if(states[0].properties.White>=0){
+
+            } else if(states[0].properties.White>=0) {
                 var pro = parseInt(100-states[0].properties.White);
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
+
                 popup.setLngLat(addr)
                         // .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
                 //document.getElementById('pro').innerHTML=pro;
-            }
-            else if(points.length>0){
+
+            } else if(points.length>0) {
                 var point = points[0];
                 //var lalo = [point.properties.longitude,point.properties.latitude];
                 console.log(point.geometry.coordinates);
                 var lo = point.geometry.coordinates[0];
                 var la = point.geometry.coordinates[1];
+
                 popup.setLngLat(point.geometry.coordinates)
                         .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map)
                 document.getElementById('address').innerHTML=[lo,la];
-            }
-
-            else {
+            } else {
                 document.getElementById('pd').innerHTML = '<p>Hover over a census tract!</p>';
             }
         }
-
-
-
-
     });
 
-
     map.on('click',function(e){
-
         var features;
 
         if(layerNum==2){
-
             features = map.queryRenderedFeatures(e.point, { layers: layers2 });
-        }
-        else if(layerNum==3){
+        } else if(layerNum==3){
             features = map.queryRenderedFeatures(e.point, { layers: layers3 });
-        }
-        else if(layerNum==-1){
+        } else if(layerNum==-1){
             features = map.queryRenderedFeatures(e.point, { layers: layers1 });
         }
 
         var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
-        if(points.length){
+        
+        if(points.length) {
             var point = points[0];
             //var lalo = [point.properties.longitude,point.properties.latitude];
             console.log(point.geometry.coordinates);
             var lo = parseInt(point.geometry.coordinates[0]);
             var la = parseInt(point.geometry.coordinates[1]);
+      
             popup.setLngLat(point.geometry.coordinates)
                     .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                     .addTo(map)
             document.getElementById('address').innerHTML=[lo,la];
-        }
 
-
-
-
-
-
-        else if (!features.length) {
+        } else if (!features.length) {
             popup.remove();
             return;
-        }
-        else{
+
+        } else {
             var feature = features[0];
 
             // Populate the popup and set its coordinates
             // based on the feature found.
             var pro = parseInt(100-features[0].properties.White);
             var addr = [feature.properties.longitude,feature.properties.latitude];
+
             popup.setLngLat(addr)
                     //.setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                     .setHTML('<br><strong>Address: </strong><p id="address"></p>')
@@ -495,11 +456,7 @@
             document.getElementById('address').innerHTML=addr;
             //document.getElementById('pro').innerHTML=pro;
         }
-
-
     });
-
-
 
     var layerList = document.getElementById('menu');
     var inputs = layerList.getElementsByTagName('input');
@@ -507,75 +464,55 @@
 
     function switchLayer(layer){
         var layerId = layer.target.id;
-        //alert(layerId);
         if(layerId=='race_02'){
-
             if (status1 == 0) {
                 map.setStyle('mapbox://styles/hfeng/ciw8rurq2001u2qlh5chgqb4y');//Racial_density_03-copy-copy-copy-copy-copy
                 layerNum = 2;
-
                 status1 = 1;
                 status2 = 0;
                 racial.style.display='block';
                 price.style.display='none';
-            }
-            else if (status1 == 1&&status2==0) {
-                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip01-copy
 
+            } else if (status1 == 1&&status2==0) {
+                map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip01-copy
                 status1 = 0;
                 layerNum=-1;
                 racial.style.display='none';
                 tip.style.display='none';
-
             }
 
-        }
-        else if(layerId=='property'){
-
+        } else if(layerId=='property'){
             if (status2 == 0) {
-
                 map.setStyle('mapbox://styles/hfeng/ciwbm2lih00342qmed4b3rew7');//Price-copy-copy-copy-copy-copy-copy-copy   //Census_tract_light_03
-
                 status2 = 1;
                 status1 = 0;
                 layerNum = 3;
                 racial.style.display='none';
                 price.style.display='block';
-            }
-            else if (status2 == 1&&status1==0) {
+
+            } else if (status2 == 1&&status1==0) {
                 map.setStyle('mapbox://styles/hfeng/civsigryy000d2jukyuxomwm2');//Tooltip01-copy
                 status2 = 0;
                 layerNum=-1;
                 price.style.display='none';
                 tip.style.display='none';
-
             }
-
         }
-
     }
+
     for(var i=0;i<inputs.length;i++){
         inputs[i].onclick = switchLayer;
     }
 
-
-
-
-    var i =0;
+    var i = 0;
     var app = angular.module('MyApp',[]);
     app.controller('MyCtrl',function($scope,$http){
-
-
-
         $scope.fetch = function(){
             //document.getElementById('fresh').className='active';
             $http.get("/fetch").success(function(data){
                 test = data;
-
-
-                //console.log(data);
-
             });
+            
             console.log(test);
             var str = i+"";
             i++;
@@ -593,12 +530,9 @@
                     "icon-image": "{icon}-15",
                     "icon-allow-overlap": true
                 }
-
             });
         };
-
     });
-
 
     function myReset(){
         status1=0;
@@ -614,20 +548,11 @@
     window.takeScreenShot = function() {
         html2canvas(document.getElementById("map"), {
             onrendered: function (canvas) {
-                <!-- document.body.appendChild(canvas); -->
                 window.open(canvas.toDataURL());
             },
             width:1400,
             height:1000
         });
     }
-
-
-
-
 </script>
-
-
-
-
 </html>
