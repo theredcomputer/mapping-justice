@@ -70,7 +70,7 @@ if (app.get('env') === 'development') {
 
 var temp1,temp2;
 
-
+//test for geocode API
 app.get('/address',function(req,res){
   client.geocodeForward('Chester, NJ', function(err, res) {
   // res is the geocoding result as parsed JSON
@@ -78,7 +78,7 @@ app.get('/address',function(req,res){
 });
   return res.json(temp1);
 });
-
+//formal restful API for geocoding
 app.get('/address/:name',function(req,res){
 
   client.geocodeForward(req.params.name, function(err, res) {
@@ -92,7 +92,7 @@ app.get('/address/:name',function(req,res){
    
     
 });
-
+//Upload address into mapbox database
 app.get('/insert/:point',function(req,res){
   var n = (req.params.point).indexOf(",");
   var lat = parseFloat((req.params.point).substring(0,n));
@@ -118,7 +118,7 @@ app.get('/insert/:point',function(req,res){
 });
 
 var set;
-
+//Fetch all the data from mapbox database
 app.get('/fetch',function(req,res){
    client.listFeatures('civn66zrc003g2yn2etaxhaey', {}, function(err, collection,res) {
        console.log(collection.features.length);
