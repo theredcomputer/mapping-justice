@@ -315,11 +315,10 @@
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
             
                 popup.setLngLat(addr)
-                       // .setHTML('<br><strong>Property Address: </strong><p id="address"></p><strong>Property (% African American): </strong><p id="pro"></p>')
                         .setHTML('<br><strong>Property Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
-                //document.getElementById('pro').innerHTML=pro;
+                
 
             } else if(points.length>0) {
                 var point = points[0];
@@ -349,15 +348,12 @@
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
 
                 popup.setLngLat(addr)
-                        // .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
-                //document.getElementById('pro').innerHTML=pro;
 
             } else if(points.length>0) {
                 var point = points[0];
-                //var lalo = [point.properties.longitude,point.properties.latitude];
                 console.log(point.geometry.coordinates);
                 var lo = point.geometry.coordinates[0];
                 var la = point.geometry.coordinates[1];
@@ -378,9 +374,6 @@
             
             var points = map.queryRenderedFeatures(e.point, { layers: ['places'] });
 
-            // Change the cursor style as a UI indicator.
-            //map.getCanvas().style.cursor = (states[0].properties.White>0) ? 'pointer' : '';
-
             if (states[0].properties.Price_PRIC > 0) {
                 document.getElementById('pd').innerHTML = "<h3><strong>" + states[0].properties.Price_GEOG + "</strong></h3><p><strong><em>" + "Median Home Price: $"+states[0].properties.Price_PRIC + "</strong></em></p>";
 
@@ -389,15 +382,12 @@
                 var addr = [states[0].properties.longitude,states[0].properties.latitude];
 
                 popup.setLngLat(addr)
-                        // .setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                         .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                         .addTo(map);
                 document.getElementById('address').innerHTML=states[0].properties.Address;
-                //document.getElementById('pro').innerHTML=pro;
 
             } else if(points.length>0) {
                 var point = points[0];
-                //var lalo = [point.properties.longitude,point.properties.latitude];
                 console.log(point.geometry.coordinates);
                 var lo = point.geometry.coordinates[0];
                 var la = point.geometry.coordinates[1];
@@ -427,7 +417,6 @@
         
         if(points.length) {
             var point = points[0];
-            //var lalo = [point.properties.longitude,point.properties.latitude];
             console.log(point.geometry.coordinates);
             var lo = parseInt(point.geometry.coordinates[0]);
             var la = parseInt(point.geometry.coordinates[1]);
@@ -450,11 +439,9 @@
             var addr = [feature.properties.longitude,feature.properties.latitude];
 
             popup.setLngLat(addr)
-                    //.setHTML('<br><strong>Address: </strong><p id="address"></p><strong>Property(% African American): </strong><p id="pro"></p>')
                     .setHTML('<br><strong>Address: </strong><p id="address"></p>')
                     .addTo(map);
             document.getElementById('address').innerHTML=addr;
-            //document.getElementById('pro').innerHTML=pro;
         }
     });
 
@@ -483,7 +470,7 @@
 
         } else if(layerId=='property'){
             if (status2 == 0) {
-                map.setStyle('mapbox://styles/hfeng/ciwbm2lih00342qmed4b3rew7');//Price-copy-copy-copy-copy-copy-copy-copy   //Census_tract_light_03
+                map.setStyle('mapbox://styles/hfeng/ciwbm2lih00342qmed4b3rew7');//Price-copy-copy-copy-copy-copy-copy-copy   
                 status2 = 1;
                 status1 = 0;
                 layerNum = 3;
@@ -508,7 +495,6 @@
     var app = angular.module('MyApp',[]);
     app.controller('MyCtrl',function($scope,$http){
         $scope.fetch = function(){
-            //document.getElementById('fresh').className='active';
             $http.get("/fetch").success(function(data){
                 test = data;
             });
