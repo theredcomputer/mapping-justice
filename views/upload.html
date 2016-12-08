@@ -276,24 +276,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiaGZlbmciLCJhIjoiY2lzdndodTI0MDJvYjJ5cGd5ZnI2ZmJnNyJ9.D4VXSWW1-uWiSiB4bYRXOw';
         //create map
         var map = new mapboxgl.Map({
             container: 'map', // container id
-            //style: 'mapbox://styles/examples/cinm8cuw30024adnctbjra0zy' // map style URL from Mapbox Studio
             style:'mapbox://styles/mapbox/streets-v9',
             zoom:8,
             center:[-84.393753,33.774326]
@@ -311,28 +298,10 @@
             var i=0;
             $scope.addItem = function () {
 
-
-//            temp1 = $scope.addMe;
-//            str = '/address/'+temp1;
-//            if(str!=null){
-//
-//                $http.get(str).success(function(data){
-//                    //$scope.demo=data;
-//                    //alert( "Load was performed. " + data );
-//                    console.log(data);
-//
-//                    console.log('OK!');
-//                });
-////                $http.get("/fetch").success(function(data){
-////                    console.log(data);
-////                });
-//
-//            }
                 var address;
                 address =$scope.addLine1+" "+$scope.addLine2+" "+$scope.typeahead+" "+$scope.Zipcode;
                 geocoder.query(address);
-//            console.log(address);
-
+\
 
 
                 $http.get("/address/"+address).success(function(data){
@@ -381,11 +350,6 @@
                 });
             }
         });
-
-
-
-
-
 
         var popup = new mapboxgl.Popup({
             closeButton:false,
