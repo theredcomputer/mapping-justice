@@ -16,11 +16,6 @@ app.set('view engine', 'jade');
 
 
 
-//var expressSession = require('express-session');
-//app.use(expressSession({secret: 'mySecretKey'}));
-//app.use(passport.initialize());
-//app.use(passport.session());
-
 var flash = require('connect-flash');
 app.use(flash());
 
@@ -34,23 +29,7 @@ app.use(flash());
 
 var initPassport = require('./passport/init');
 initPassport(passport);
-//var flash = require('connect-flash');
 
-
-//var routes = require('./routes/index')(passport);
-//var users = require('./routes/users');
-//var map = require('./routes/map');
-
-
-//var dbConfig = require('./db');
-//var mongoose = require('mongoose');
-// Connect to DB
-//mongoose.connect(dbConfig.url);
-
-
-//var app = express();.static(path.join(__dirname, 'public')));
-
-//
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -74,32 +53,7 @@ app.use('/upload',upload);
 
 
 
-// Configuring Passport
-//var passport = require('passport');
-//var expressSession = require('express-session');
-//app.use(expressSession({secret: 'mySecretKey'}));
-//app.use(passport.initialize());
-//app.use(passport.session());
 
-// Using the flash middleware provided by connect-flash to store messages in session
-// and displaying in templates
-//var flash = require('connect-flash');
-//app.use(flash());
-
-// Initialize Passport
-//var initPassport = require('./passport/init');
-//initPassport(passport);
-
-//var routes = require('./routes/index')(passport);
-//app.use('/', routes);
-
-/// catch 404 and forward to error handler
-
-//app.use(function(req, res, next) {
-  //var err = new Error('Not Found');
-  //err.status = 404;
-  //next(err);
-//});
 
 // development error handler
 // will print stacktrace
@@ -121,7 +75,6 @@ app.get('/address',function(req,res){
   client.geocodeForward('Chester, NJ', function(err, res) {
   // res is the geocoding result as parsed JSON
   temp1 = res.features[0].geometry.coordinates;
-  //console.log(temp1);
 });
   return res.json(temp1);
 });
@@ -134,7 +87,6 @@ app.get('/address/:name',function(req,res){
   
 
   });
-  //console.log(temp2);
   setTimeout((function() {res.send(temp2)}), 2000);
   
    
@@ -142,7 +94,6 @@ app.get('/address/:name',function(req,res){
 });
 
 app.get('/insert/:point',function(req,res){
-  // var len = (req.params.point).length();
   var n = (req.params.point).indexOf(",");
   var lat = parseFloat((req.params.point).substring(0,n));
   var long = parseFloat((req.params.point).substring(n+1));
@@ -162,8 +113,6 @@ app.get('/insert/:point',function(req,res){
   client.insertFeature(feature, 'civn66zrc003g2yn2etaxhaey', function(err, feature) {
       if(!err) {
         console.log(feature);
-        //console.log('insert!');
-        //return res.json('insert!');
       }
    });
 });
@@ -172,56 +121,11 @@ var set;
 
 app.get('/fetch',function(req,res){
    client.listFeatures('civn66zrc003g2yn2etaxhaey', {}, function(err, collection,res) {
-       //console.log(collection);
-       // var n = collection.features.length;
        console.log(collection.features.length);
-       //console.log(res.features.length);
-       //return res.json(collection.features[21].geometry.coordinates);
        set = collection;
        
    });
    setTimeout((function(){res.json(set)}),2000);
-   //return res.json(set);
 });
-
-// var dataset01 = {
-//   "name": "foo",
-//   "description": "bar"
-// };
-
-// client.createDataset({ name: 'foo', description: 'bar' }, function(err, dataset) {
-
-//       console.log(dataset);
-//   });
-
-// var feature = {
-//   "type": "Feature",
-//   "properties": {
-//     "name": "Test Island"
-//   },
-//   "geometry": {
-//     "type": "Point",
-//     "coordinates": [220, 110]
-//   }
-// };
-// client.insertFeature(feature, 'civh80y03016b2to6gg7y0zc6', function(err, feature) {
-//   if(!err) console.log(feature);
-// });
-// client.deleteDataset('civh2r5eg01tx2op3d83si55q', function(err) {
-//   if (!err) console.log('deleted!');
-//   console.log(err);
-// });
-// client.readDataset('civh2r5eg01tx2op3d83si55q', function(err, dataset) {
-//   console.log(dataset);
-// });
-
-// app.post('/datasets/v1/hfeng49',function(req,res){
-    
-//     console.log('created!');
-// });
-
-
-
-
 
 module.exports = app;
