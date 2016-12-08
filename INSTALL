@@ -48,6 +48,9 @@ Operating the application:
 To start the site, run the following from the project root directory:
 $ npm start
 
+To login, visit the following URL:
+localhost:3000
+
 To view the map, visit the following URL:
-localhost
+localhost:3000/map
 
