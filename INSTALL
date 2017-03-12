@@ -1,56 +1,101 @@
-Project Dependencies:
+This document provides instructions to get the Mapping Justice application
+configured for your machine.
+
+This process has only been tested on Ubuntu 16.04.
+
+===============================================================================
+
+Installing project dependencies:
 
 Node.js
-
     To install node.js on Mac, run:
     $ brew install node
 
     To instal Nodejs on Linux, run:
     $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    $ sudo apt-get install -y nodejs
+    $ sudo apt install -y nodejs
 
 npm
-
-    To install npm on Linux, run:
-    $ sudo apt-get install -y npm
+    Installing nodejs will also install npm. However, npm probably needs
+    to be updated. To do so, run:
+    $ npm install npm@latest -g
 
 nginx
-
     To install nginx on Linux, run:
-    $ sudo apt-get install -y nginx
+    $ sudo apt install -y nginx
 
 MongoDB
-
-    Go to https://www.mongodb.com/download-center?filter=enterprise&gclid=Cj0KEQiA08rBBRDUn4qproqwzYMBEiQAqpzns7UbS_M0a_zlxwHy3xECl9WveImnved6GC9cgtA7MgUaAkAm8P8HAQ#enterprise
-    to download the MongoDB database application
-    
-    in Terminal, navigate to it's bin folder and run 
-    mongod --dbpath ~/Downloads/mapping-justice-master/userdata/ --port 27017 --smallfiles
-    to establish connection on port 27017 (localhost)
-    replace the directory to wherever the user's data is stored.
-    
+    You can download the MongoDB database application from the following URL:
+    https://www.mongodb.com/download-center?filter=enterprise&gclid=Cj0KEQiA08rBBRDUn4qproqwzYMBEiQAqpzns7UbS_M0a_zlxwHy3xECl9WveImnved6GC9cgtA7MgUaAkAm8P8HAQ#enterprise
     
 
 ===============================================================================
 
 Configuring the environment:
 
-Pull the required Javascripts:
+a) Pull the required Javascripts:
 $ npm install
 
-Configure nginx (CURRENTLY LINUX ONLY, open the file to see what it does)
+b) Configure nginx (CURRENTLY LINUX ONLY, open the file to see what it does)
 $ sudo ./config/webserver.sh
+
+c) The application needs to be able to handle a server reboot. To do so, perform
+the following steps:
+    
+    1) From a terminal window, run:
+    $ crontab -e
+    
+    2) Add the following line to the bottom of the file which pops up:
+    @reboot <PROJECT_ROOT_DIRECTORY>/start_mapping_justice.sh
+    , replacing <PROJECT_ROOT_DIRECTORY> with the path to the project.
+
+    3) Save and close the file.
+
 
 ===============================================================================
 
 Operating the application:
 
-To start the site, run the following from the project root directory:
-$ npm start
+In the ideal case, the server runs at startup, so a "ps aux | grep npm" should
+reveal if it's running.
 
-To login, visit the following URL:
-localhost:3000
+Chances are, however, the server is not running. There are two ways to start 
+the site. 
+
+1) The first and simplest method is to run the automatic starter script. 
+This is strongly recommended because it generates log files and sends processes
+to the background. 
+
+    From the project root directory, run the follwing command:
+    $ ./start_mapping_justice.sh
+
+2) The second method requires you to run two commands in two separate terminal windows.
+
+    From the first terminal, navigate to <PROJECT_ROOT_DIRECTORY>/bin and run 
+    the following command:
+    $ mongod --dbpath <PROJECT_ROOT_DIRECTORY>/userdata/ --port 27017 --smallfiles
+
+    From the second terminal, navigate to <PROJECT_ROOT_DIRECTORY> and run
+    the following command:
+    $ npm start
+
+
+You should be able to access the site by pointing your web browser to the 
+following domain:
+localhost
 
 To view the map, visit the following URL:
-localhost:3000/map
+localhost/map
+
+
+===============================================================================
+
+Debugging:
+
+In the event you are unable to connect to "localhost", try connecting 
+to "localhost:3000" instead
+
+
+
+
 
