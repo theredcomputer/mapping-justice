@@ -20,4 +20,5 @@ sleep 5
 exec 1>"$PATH_LOG_DIRECTORY"/log_site_$DATE 2>&1
 
 cd $PATH_PROJECT_ROOT
+service nginx start
 npm start &

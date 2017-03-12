@@ -51,6 +51,19 @@ the following steps:
 
     3) Save and close the file.
 
+d) Configure SSL.
+    
+    1) Install Let's Encrypt by running:
+    $ sudo apt install -y letsencrypt
+    
+    2) To get your certificate, run:
+    $ letsencrypt certonly --standalone -d map.atlantalegalaid.org
+    
+    3) Follow the same steps in Part C above to add the following line to the
+    crontab file:
+    34 7,19 * * * letsencrypt renew 
+    Since the certificate will expire after 90 days, this ensures our cert is
+    always up-to-date.
 
 ===============================================================================
 
